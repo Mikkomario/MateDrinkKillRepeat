@@ -1,4 +1,4 @@
-package o1.adventure
+package main
 
 /**
  * The class `Item` represents items in a text adventure game. Each item has 

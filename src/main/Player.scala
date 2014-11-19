@@ -1,4 +1,4 @@
-package o1.adventure
+package main
 
 import scala.collection.mutable.Map
 
@@ -10,9 +10,8 @@ import scala.collection.mutable.Map
  * 
  * @param startingArea  the initial location of the player
  */
-class Player(startingArea: Area) {
+class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male) {
 
-  private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
   private var items = Map[String, Item]()
    
@@ -21,26 +20,6 @@ class Player(startingArea: Area) {
    * Determines if the player has indicated a desire to quit the game.
    */
   def hasQuit = this.quitCommandGiven
-
-  
-  /**
-   * Returns the current location of the player.
-   */
-  def location = this.currentLocation
-  
-
-  /**
-   * Attempts to move the player in the given direction. This is successful if there 
-   * is an exit from the player's current location towards the given direction.
-   * 
-   * @param direction  a direction name (may be a nonexistent direction)
-   * @return a description of the results of the attempt 
-   */
-  def go(direction: String) = {
-    val destination = this.location.neighbor(direction)
-    this.currentLocation = destination.getOrElse(this.currentLocation) 
-    if (destination.isDefined) "You go " + direction + "." else "You can't go " + direction + "."
-  }
 
   
   /**
@@ -75,7 +54,7 @@ class Player(startingArea: Area) {
   
   def drop(itemName: String) = {
     if (this.has(itemName)) {
-      this.currentLocation.addItem(this.items(itemName))
+      this.location.addItem(this.items(itemName))
       this.items -= itemName
       "You drop the " + itemName + "."
     } else "You don't have that!"
@@ -89,7 +68,7 @@ class Player(startingArea: Area) {
   
   
   def get(itemName: String) = {
-    val item = this.currentLocation.removeItem(itemName)
+    val item = this.location.removeItem(itemName)
     if (item.isDefined) {
       this.items += itemName -> item.get
       "You pick up the " + itemName + "."
