@@ -10,9 +10,9 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   
   def stressLevel = this.stress
   
-  def attentionArousal = (this.alcohol + this.stress) / 2
+  def suspect = (this.alcohol + this.stress) / 2
   
-  def perception = 1 / this.attentionArousal
+  def perception = 1 / this.suspect
   
   def location = this.currentLocation
   
