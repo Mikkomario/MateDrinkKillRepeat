@@ -6,6 +6,11 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   private var stress = initialStress // 0 - 100
   private var currentLocation = startingArea
   private var items = Map[String, Item]()
+  private var searched = false //determines whether a Police has searched this individual
+  
+  def hasBeenSearched = this.searched
+  
+  def beSearched = this.searched = true
   
   def bloodAlcohol = this.alcohol
   
