@@ -5,6 +5,7 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   private var alcohol = initialDrunkenness // 0 - 100
   private var stress = initialStress // 0 - 100
   private var currentLocation = startingArea
+  private var items = Map[String, Item]()
   
   def bloodAlcohol = this.alcohol
   
@@ -15,6 +16,20 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   def perception = 1 / this.suspect
   
   def location = this.currentLocation
+  
+  def has(itemName: String) = this.items.contains(itemName)
+  
+  def addItem(item: Item) = this.items += item.name -> item
+  
+  def removeItem(itemName: String) = {
+    if (this.has(itemName)) {
+      val item = Some(this.items(itemName))
+      this.items -= itemName
+      item
+    } else None
+  }
+  
+  def inventory = this.items
   
   /**
    * Attempts to move the human in the given direction. This is successful if there 

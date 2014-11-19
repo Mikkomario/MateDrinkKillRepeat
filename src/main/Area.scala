@@ -98,4 +98,6 @@ class Area(var name: String, var description: String) {
   def removePerson(person: Human) = this.population -= person.name
   
   
+  def people = this.population
+  
 }
