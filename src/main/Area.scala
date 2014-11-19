@@ -18,6 +18,7 @@ class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
   private val items = Map[String, Item]()
+  private val population = Map[String, Human]()
   
   /**
    * Returns the area that can be reached from this area by moving in the
@@ -90,6 +91,11 @@ class Area(var name: String, var description: String) {
     } else None
   }
   
+  
+  def addPerson(person: Human) = this.population += person.name -> person
+  
+  
+  def removePerson(person: Human) = this.population -= person.name
   
   
 }

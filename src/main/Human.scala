@@ -17,8 +17,8 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   def location = this.currentLocation
   
   /**
-   * Attempts to move the player in the given direction. This is successful if there 
-   * is an exit from the player's current location towards the given direction.
+   * Attempts to move the human in the given direction. This is successful if there 
+   * is an exit from the human's current location towards the given direction.
    * 
    * @param direction  a direction name (may be a nonexistent direction)
    * @return a description of the results of the attempt 
@@ -27,6 +27,16 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     val destination = this.location.neighbor(direction)
     this.currentLocation = destination.getOrElse(this.currentLocation) 
     if (destination.isDefined) "You go " + direction + "." else "You can't go " + direction + "."
+  }
+  
+  
+  def buyDrink = {
+    
+  }
+  
+  
+  def drink = {
+    
   }
   
 }
