@@ -1,5 +1,7 @@
 package main
 
+import scala.math.min
+
 class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, val sex: Gender) {
   
   private var alcohol = initialDrunkenness // 0 - 100
@@ -8,11 +10,17 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   private var items = Map[String, Item]()
   private var searched = false //determines whether a Police has searched this individual
   
+  override def toString = { // kuvaus: sukupuoli, rooli, näennäinen humaltuneisuus, näennäinen valppaus
+    ""
+  }
+  
+  def isPassedOut = this.alcohol == 100
+  
   def hasBeenSearched = this.searched
   
   def beSearched = this.searched = true
   
-  def bloodAlcohol = this.alcohol
+  def intoxication = this.alcohol
   
   def stressLevel = this.stress
   
@@ -54,8 +62,12 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     
   }
   
+  def drink = { // called by Drink.drink -method
+    this.alcohol += 20
+    this.alcohol = min(this.alcohol, 100)
+  }
   
-  def drink = {
+  def use(itemName: String) = {
     
   }
   

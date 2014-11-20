@@ -11,7 +11,7 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
   }
   
   
-  def suspectsPlayer = if (this.suspicion.isDefined && this.suspicion.isInstanceOf[Player]) true else false
+  def suspectsPlayer = if (this.suspicion.isDefined && this.suspicion.get.isInstanceOf[Player]) true else false
   
   
   def search = {
