@@ -1,6 +1,7 @@
 package main
 
 import scala.math.min
+import scala.math.max
 
 class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, val sex: Gender) {
   
@@ -63,8 +64,8 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   }
   
   def drink = { // called by Drink.drink -method
-    this.alcohol += 20
-    this.alcohol = min(this.alcohol, 100)
+    this.stress = max(this.stress - 25, 0)
+    this.alcohol = min(this.alcohol + 15, 100)
   }
   
   def use(itemName: String) = {

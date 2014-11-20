@@ -15,7 +15,7 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
   
   
   def search = {
-    val suspect = this.location.people.filterNot( _._2.hasBeenSearched ).maxBy( _._2.suspect )._2
+    val suspect = this.location.people.filter( !_._2.hasBeenSearched ).maxBy( _._2.suspect )._2
     suspect.beSearched
 // if (suspect.has(EVIDENCE)) {
     this.suspicion = Some(suspect)
