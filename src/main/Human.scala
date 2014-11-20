@@ -59,8 +59,10 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   }
   
   
-  def buyDrink = {
-    
+  def buyDrink = { // ostaa yhden juoman, jos samassa alueessa on bartender jolla on drinkki tai useampi
+    val bartenders = this.location.people.filter( _._2.isInstanceOf[Bartender] )
+    val vendor = bartenders.find( _._2.removeItem("drink").isDefined ) //jos on bartender jolla on juoma, poistaa siltä juoman ja palauttaa bartenderin Optionissa
+    if (vendor.isDefined) this.addItem(new Drink)
   }
   
   def drink = { // called by Drink.drink -method

@@ -20,7 +20,7 @@ class Adventure {
   private val tables      = new Area("Tables", "You are at the tables where customers come to sit and enjoy their drinks.")
   private val bar         = new Area("Bar", "There are many fancy drinks available. Damn, only two beers on the tap.")
   private val danceFloor  = new Area("Dance Floor", "Here the music is loudest. The smells of sweat and perfume mingle obscenely in the air.")
-  private val balcony      = new Area("Balcony", "Ah, fresh air! You see dense bushes on the ground, two floors down.")
+  private val balcony     = new Area("Balcony", "Ah, fresh air! You see dense bushes on the ground, two floors down.")
 
         toilets.setNeighbors(Vector("north" -> tables,      "east" -> danceFloor                                           ))
          tables.setNeighbors(Vector(                        "east" -> bar,    "south" -> danceFloor,  "west" -> toilets    ))
@@ -29,9 +29,12 @@ class Adventure {
         balcony.setNeighbors(Vector("north" -> danceFloor                                                                  ))
 
   this.toilets.addItem(new Item("body", "The fellow you killed. It's still warm.", true))
+  
 
   /** The character that the player controls in the game. */
   val player = new Player(toilets)
+  this.player.addItem(new Item("weapon", "The murder weapon. It looks pretty gnarly.", true))
+  this.player.addItem(new Item("cloth", "A piece of clothing partially soaked in blood.", true))
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
@@ -55,7 +58,7 @@ class Adventure {
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.
    */
-  def welcomeMessage = "You are lost in the woods. Find your way back home.\n\nBetter hurry, 'cause Game of Thrones is on real soon now. And you can't miss GoT, right?"
+  def welcomeMessage = "You are at a party. It's pretty cool.\nThe problem is, you just killed someone!\nYou better get rid of the evidence, before the coppers catch you!"
 
     
   /**

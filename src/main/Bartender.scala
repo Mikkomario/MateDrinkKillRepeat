@@ -8,7 +8,9 @@ class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initi
   }
   
   def pourDrinks = { // lis‰‰ Drinkkej‰ itselleen ostettaviksi
-    
+    for (i <- 0 to 2) {
+      this.addItem(new Drink)
+    }
   }
   
 }
