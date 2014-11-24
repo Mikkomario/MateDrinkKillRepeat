@@ -1,0 +1,16 @@
+Mate Drink Kill Repeat
+
+TODO:
+
+Mikko
+	* Actit
+	* Actionit (haastava)
+	* Helppi (työläs, mutta helppo)
+Tuoppi
+	* Walkthrough (työläs, mutta helppo)
+	* Evidencet ja niiden käyttäminen (helpohko)
+	* Pelin päättyminen (helppo)
+	* NPC:iden luominen (helppo)
+
+
+* (Deittailu) (vitun haastava)
