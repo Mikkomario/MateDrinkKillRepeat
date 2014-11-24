@@ -1,6 +1,7 @@
 package main
 
-class Drink extends Item("drink", "An alcoholic beverage", false) {
+class Drink extends Item("drink", "An alcoholic beverage", false)
+{
   
   private var usesLeft = 2
   
