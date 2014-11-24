@@ -5,6 +5,10 @@ TODO:
 Mikko
 	* Actit
 	* Actionit (haastava)
+		- Give
+		- Use
+		- Plant
+		- Hide
 	* Helppi (työläs, mutta helppo)
 Tuoppi
 	* Walkthrough (työläs, mutta helppo)

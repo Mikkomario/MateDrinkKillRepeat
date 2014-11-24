@@ -77,9 +77,10 @@ class Area(var name: String, var description: String) {
    */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
 
-  
-  
   def inventory = this.items
+
+  def containsPerson(person: Human): Boolean = !this.people.filter(_._2 == person).isEmpty;
+
   
   def contains(itemName: String) = this.inventory.contains(itemName)
   
