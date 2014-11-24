@@ -1,6 +1,7 @@
 package main
 
 import scala.collection.mutable.Map
+import scala.collection.mutable.Buffer
 
 /**
  * The class `Area` represents locations in a text adventure game world. 
@@ -17,7 +18,7 @@ import scala.collection.mutable.Map
 class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
-  private val items = Map[String, Item]()
+  private val items = Map[String, Buffer[Item]]()
   private val population = Map[String, Human]()
   
   /**
@@ -77,18 +78,30 @@ class Area(var name: String, var description: String) {
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
 
   
-  def addItem(item: Item) = this.items += item.name -> item
+  def addItem(item: Item) = 
+  {
+    if (this.items.contains(item.name))
+      this.items.get(item.name).get += item;
+    else
+      this.items += (item.name -> Buffer(item));
+  }
   
   
   def contains(itemName: String) = this.items.contains(itemName)
   
   
-  def removeItem(itemName: String) = {
-    if (this.contains(itemName)) {
-      val item = Some(this.items(itemName))
-      this.items -= itemName
+  def removeItem(itemName: String) =
+  {
+    if (this.contains(itemName) && this.items.get(itemName).get.size > 0)
+    {
+      val list = this.items.get(itemName).get
+      val item = Some(list.remove(0));
+      if (list.isEmpty)
+        this.items -= itemName
       item
-    } else None
+    }
+    else
+      None
   }
   
   

@@ -4,11 +4,13 @@ class Drink extends Item("drink", "An alcoholic beverage", false) {
   
   private var usesLeft = 2
   
-  def howFull = this.usesLeft
+  //def howFull = this.usesLeft
   
-  def drink(drinker: Human) = {
+  def drink() = {
     this.usesLeft -= 1
-    drinker.drink
+    if (this.usesLeft == 0) true else false
   }
+  
+  def use(drinker: Human) = drinker.drink(this)
   
 }

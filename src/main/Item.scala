@@ -18,5 +18,6 @@ class Item(val name: String, val description: String, val isEvidence: Boolean) {
    */
   override def toString = this.name
   
+  def use: Boolean
   
 }
