@@ -100,9 +100,23 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     else false
   }
   
-  def hasDrinks(): Boolean =
+  def drink(): Boolean =
   {
-    return this.has("drink") && !this.items.get("drink").get.isEmpty
+	  if (!this.hasDrinks())
+	 	  return false;
+	   
+	  val mug = this.items.get("drink").get(0).asInstanceOf[Drink];
+	  return this.drink(mug);
+  }
+  
+  def hasDrinks(): Boolean = this.drinkAmount > 0
+  
+  def drinkAmount: Int =
+  {
+	  if (!this.has("drink"))
+	 	  return 0;
+	  
+	  return this.items.get("drink").get.size;
   }
   
   def use(itemName: String) = {
