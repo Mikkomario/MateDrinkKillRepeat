@@ -24,7 +24,7 @@ class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initi
 	  // lis‰‰ Drinkkej‰ itselleen ostettaviksi
 	  while (this.drinkAmount < 5)
 	  {
-	 	  addItem(new Drink());
+	 	  this.inventory.addItem(new Drink());
 	  }
   }
 }

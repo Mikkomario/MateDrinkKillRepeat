@@ -1,6 +1,7 @@
 package main
 
-abstract class Evidence(name: String, description: String) extends Item(name, description, true) {
+abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
+  extends Item(name, description, true, canBeLifted) {
   
   private var hiddenness = 0
   

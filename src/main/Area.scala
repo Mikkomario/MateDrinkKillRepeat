@@ -18,7 +18,7 @@ import scala.collection.mutable.Buffer
 class Area(var name: String, var description: String) {
   
   private val neighbors = Map[String, Area]()
-  private val items = Map[String, Buffer[Item]]()
+  private val items = new Inventory
   private val population = Map[String, Human]()
   
   /**
@@ -64,7 +64,7 @@ class Area(var name: String, var description: String) {
   def fullDescription = {
     def itemList = {
       if (!this.items.isEmpty) {
-      "\nYou see here: " + this.items.map(_._2).mkString(" ")
+      "\nYou see here: " + this.inventory.inventory.map(_._2).mkString(" ")
       } else ""
     }
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
@@ -78,32 +78,10 @@ class Area(var name: String, var description: String) {
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
 
   
-  def addItem(item: Item) = 
-  {
-    if (this.items.contains(item.name))
-      this.items.get(item.name).get += item;
-    else
-      this.items += (item.name -> Buffer(item));
-  }
   
+  def inventory = this.items
   
-  def contains(itemName: String) = this.items.contains(itemName)
-  
-  
-  def removeItem(itemName: String) =
-  {
-    if (this.contains(itemName) && this.items.get(itemName).get.size > 0)
-    {
-      val list = this.items.get(itemName).get
-      val item = Some(list.remove(0));
-      if (list.isEmpty)
-        this.items -= itemName
-      item
-    }
-    else
-      None
-  }
-  
+  def contains(itemName: String) = this.inventory.contains(itemName)
   
   def addPerson(person: Human) = this.population += person.name -> person
   

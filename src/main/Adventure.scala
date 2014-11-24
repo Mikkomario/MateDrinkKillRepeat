@@ -28,13 +28,13 @@ class Adventure {
      danceFloor.setNeighbors(Vector("north" -> tables,      "east" -> bar,    "south" -> balcony,     "west" -> toilets    ))
         balcony.setNeighbors(Vector("north" -> danceFloor                                                                  ))
 
-  this.toilets.addItem(new Item("body", "The fellow you killed. It's still warm.", true))
+  this.toilets.inventory.addItem(new Item("body", "The fellow you killed. It's still warm.", true, false))
   
 
   /** The character that the player controls in the game. */
   val player = new Player(toilets)
-  this.player.addItem(new Weapon)
-  this.player.addItem(new Cloth)
+  this.player.inventory.addItem(new Weapon)
+  this.player.inventory.addItem(new Cloth)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0

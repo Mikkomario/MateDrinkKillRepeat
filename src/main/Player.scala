@@ -50,10 +50,10 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   
   def drop(itemName: String) = {
-    val item = this.removeItem(itemName)
+    val item = this.inventory.removeItem(itemName)
     if (item.isDefined)
     {
-      this.location.addItem(item.get)
+      this.location.inventory.addItem(item.get)
       "You drop the " + itemName + "."
     }
     else "You don't have that!"
@@ -61,15 +61,15 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   
   def examine(itemName: String) = {
-    if (this.has(itemName)) "You look closely at " + itemName + ".\n" + this.inventory.get(itemName).get.head.description
+    if (this.has(itemName)) "You look closely at " + itemName + ".\n" + this.inventory.getItem(itemName).get.description
     else "If you want to examine something, you need to pick it up first."
   }
   
   
   def get(itemName: String) = {
-    val item = this.location.removeItem(itemName)
+    val item = this.location.inventory.removeItem(itemName)
     if (item.isDefined) {
-      this.addItem(item.get)
+      this.inventory.addItem(item.get)
       "You pick up the " + itemName + "."
     } else "There is no " + itemName + " here to pick up."
   }
@@ -77,7 +77,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   def makeInventory() = {
     if (this.inventory.isEmpty) "You are empty-handed."
-    else "You are carrying:\n" + this.inventory.map( _._2 ).mkString("\n")
+    else "You are carrying:\n" + this.inventory.inventory.map( _._2 ).mkString("\n")
   }
   
 }

@@ -1,6 +1,6 @@
 package main
 
-class Weapon extends Evidence("knife", "The murder weapon. It looks pretty gnarly.") {
+class Weapon extends Evidence("knife", "The murder weapon. It looks pretty gnarly.", true) {
   
   private var wiped = false
   

@@ -10,22 +10,13 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   private var alcohol = initialDrunkenness // 0 - 100
   private var stress = initialStress // 0 - 100
   private var currentLocation = startingArea
-  private var items = Map[String, Buffer[Item]]()
+  private val items = new Inventory
   private var searchTimes = 0 //determines whether a Police has searched this individual
   
   override def toString = { // kuvaus: sukupuoli, rooli, näennäinen humaltuneisuus, näennäinen valppaus
     ""
   }
-  
-  def getItem(itemName: String) = 
-  {
-    val itemBuffer = this.items.get(itemName)
-    if (itemBuffer.isDefined)
-    {
-      Some(itemBuffer.get.head)
-    }
-    else None
-  }
+
   
   def isPassedOut = this.alcohol == 100
   
@@ -41,29 +32,7 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   
   def location = this.currentLocation
   
-  def has(itemName: String) = this.items.contains(itemName)
-  
-  def addItem(item: Item) =
-  {
-    if (this.items.contains(item.name))
-      this.items.get(item.name).get += item;
-    else
-      this.items += (item.name -> Buffer(item));
-  }
-  
-  def removeItem(itemName: String) =
-  {
-    if (this.has(itemName) && this.items.get(itemName).get.size > 0)
-    {
-      val list = this.items.get(itemName).get
-      val item = Some(list.remove(0));
-      if (list.isEmpty)
-        this.items -= itemName
-      item
-    }
-    else
-      None
-  }
+  def has(itemName: String) = this.inventory.getItem(itemName).isDefined
   
   def inventory = this.items
   
@@ -88,9 +57,9 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   
   def buyDrink: Boolean = { // ostaa yhden juoman, jos samassa alueessa on bartender jolla on drinkki tai useampi
     val bartenders = this.location.people.filter( _._2.isInstanceOf[Bartender] )
-    val vendor = bartenders.find( _._2.removeItem("drink").isDefined ) //jos on bartender jolla on juoma, poistaa siltä juoman ja palauttaa bartenderin Optionissa
+    val vendor = bartenders.find( _._2.inventory.removeItem("drink").isDefined ) //jos on bartender jolla on juoma, poistaa siltä juoman ja palauttaa bartenderin Optionissa
     if (vendor.isDefined) {
-      this.addItem(new Drink)
+      this.inventory.addItem(new Drink)
       true
     } else false
   }
@@ -103,7 +72,7 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
       this.stress = max(this.stress - 25, 0)
       this.alcohol = min(this.alcohol + 15, 100)
       if (consumed) {
-        this.removeItem("drink")
+        this.inventory.removeItem("drink")
       }
       true
     }
@@ -115,25 +84,19 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
 	  if (!this.hasDrinks())
 	 	  return false;
 	   
-	  val mug = this.items.get("drink").get(0).asInstanceOf[Drink];
+	  val mug = this.inventory.getItem("drink").get.asInstanceOf[Drink];
 	  return this.drink(mug);
   }
   
   def hasDrinks(): Boolean = this.drinkAmount > 0
   
-  def drinkAmount: Int =
-  {
-	  if (!this.has("drink"))
-	 	  return 0;
-	  
-	  return this.items.get("drink").get.size;
-  }
+  def drinkAmount: Int = this.inventory.getAmount("drink")
   
   def use(itemName: String) = {
-    val itemBuffer = this.items.get(itemName)
-    if (itemBuffer.isDefined)
+    val item = this.inventory.getItem(itemName)
+    if (item.isDefined)
     {
-      itemBuffer.get.head.use(this)
+      item.get.use(this)
     }
     else false
   }
