@@ -33,7 +33,7 @@ class Adventure {
 
   /** The character that the player controls in the game. */
   val player = new Player(toilets)
-  this.player.addItem(new Item("weapon", "The murder weapon. It looks pretty gnarly.", true))
+  this.player.addItem(new Weapon("knife", "The murder weapon. It looks pretty gnarly."))
   this.player.addItem(new Item("cloth", "A piece of clothing partially soaked in blood.", true))
 
   /** The number of turns that have passed since the start of the game. */

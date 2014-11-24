@@ -51,15 +51,17 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   def drop(itemName: String) = {
     val item = this.removeItem(itemName)
-    if (item.isDefined) {
+    if (item.isDefined)
+    {
       this.location.addItem(item.get)
       "You drop the " + itemName + "."
-    } else "You don't have that!"
+    }
+    else "You don't have that!"
   }
   
   
   def examine(itemName: String) = {
-    if (this.has(itemName)) "You look closely at " + itemName + ".\n" + this.inventory(itemName).description
+    if (this.has(itemName)) "You look closely at " + itemName + ".\n" + this.inventory.get(itemName).get.head.description
     else "If you want to examine something, you need to pick it up first."
   }
   

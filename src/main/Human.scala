@@ -106,7 +106,12 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   }
   
   def use(itemName: String) = {
-    
+    val itemBuffer = this.items.get(itemName)
+    if (itemBuffer.isDefined)
+    {
+      itemBuffer.get.head.use(this)
+    }
+    else false
   }
   
 }
