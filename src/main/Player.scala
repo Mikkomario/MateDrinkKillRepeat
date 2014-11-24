@@ -13,7 +13,6 @@ import scala.collection.mutable.Map
 class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male) {
 
   private var quitCommandGiven = false              // one-way flag
-  private var items = Map[String, Item]()
    
   
   /**
@@ -49,20 +48,18 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   override def toString = "Now at: " + this.location.name   
 
   
-  def has(itemName: String) = this.items.contains(itemName)
-  
   
   def drop(itemName: String) = {
-    if (this.has(itemName)) {
-      this.location.addItem(this.items(itemName))
-      this.items -= itemName
+    val item = this.removeItem(itemName)
+    if (item.isDefined) {
+      this.location.addItem(item.get)
       "You drop the " + itemName + "."
     } else "You don't have that!"
   }
   
   
   def examine(itemName: String) = {
-    if (this.has(itemName)) "You look closely at " + itemName + ".\n" + this.items(itemName).description
+    if (this.has(itemName)) "You look closely at " + itemName + ".\n" + this.inventory(itemName).description
     else "If you want to examine something, you need to pick it up first."
   }
   
@@ -70,15 +67,15 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   def get(itemName: String) = {
     val item = this.location.removeItem(itemName)
     if (item.isDefined) {
-      this.items += itemName -> item.get
+      this.addItem(item.get)
       "You pick up the " + itemName + "."
     } else "There is no " + itemName + " here to pick up."
   }
   
   
   def makeInventory() = {
-    if (this.items.isEmpty) "You are empty-handed."
-    else "You are carrying:\n" + this.items.map(_._2).mkString("\n")
+    if (this.inventory.isEmpty) "You are empty-handed."
+    else "You are carrying:\n" + this.inventory.map( _._2 ).mkString("\n")
   }
   
 }
