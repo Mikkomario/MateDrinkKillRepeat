@@ -3,7 +3,7 @@ Mate Drink Kill Repeat
 TODO:
 
 Mikko
-	* Actit
+	* Actit											Testaamatta
 	* Actionit (haastava)
 		- Give
 		- Use
@@ -12,9 +12,10 @@ Mikko
 	* Helppi (työläs, mutta helppo)
 Tuoppi
 	* Walkthrough (työläs, mutta helppo)
-	* Evidencet ja niiden käyttäminen (helpohko)
+	* Evidencet ja niiden käyttäminen (helpohko)	...
 	* Pelin päättyminen (helppo)
 	* NPC:iden luominen (helppo)
+	* Viimeistely / palautus
 
 
 * (Deittailu) (vitun haastava)
