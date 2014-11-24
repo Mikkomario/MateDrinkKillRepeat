@@ -28,9 +28,17 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     else None
   }
   
+  def increaseStress(amount: Int) = this.stress += amount;
+  
   def isPassedOut = this.alcohol == 100
   
-  def beSearched = this.searchTimes += 1
+  def beSearched() = this.searchTimes += 1
+  
+  def beInterrogated() =
+  {
+	  this.searchTimes += 1;
+	  this.stress += 20;
+  }
   
   def intoxication = this.alcohol
   

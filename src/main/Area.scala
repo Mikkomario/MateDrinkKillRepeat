@@ -89,6 +89,7 @@ class Area(var name: String, var description: String) {
   
   def contains(itemName: String) = this.items.contains(itemName)
   
+  def containsPerson(person: Human): Boolean = !this.people.filter(_._2 == person).isEmpty;
   
   def removeItem(itemName: String) =
   {
