@@ -17,6 +17,16 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     ""
   }
   
+  def getItem(itemName: String) = 
+  {
+    val itemBuffer = this.items.get(itemName)
+    if (itemBuffer.isDefined)
+    {
+      Some(itemBuffer.get.head)
+    }
+    else None
+  }
+  
   def isPassedOut = this.alcohol == 100
   
   def beSearched = this.searchTimes += 1

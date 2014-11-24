@@ -1,6 +1,8 @@
 package main
 
-class Weapon(name: String, description: String) extends Item(name, description, true) {
+class Weapon extends Evidence("knife", "The murder weapon. It looks pretty gnarly.") {
+  
+  private var wiped = false
   
   def use(user: Human) =
   {
@@ -10,5 +12,8 @@ class Weapon(name: String, description: String) extends Item(name, description, 
       false
   }
   
+  def isClean = this.wiped
+  
+  def wipe() = this.wiped = true
   
 }
