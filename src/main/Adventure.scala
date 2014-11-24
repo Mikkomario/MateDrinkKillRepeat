@@ -28,7 +28,7 @@ class Adventure {
      danceFloor.setNeighbors(Vector("north" -> tables,      "east" -> bar,    "south" -> balcony,     "west" -> toilets    ))
         balcony.setNeighbors(Vector("north" -> danceFloor                                                                  ))
 
-  this.toilets.inventory.addItem(new Item("body", "The fellow you killed. It's still warm.", true, false))
+  this.toilets.inventory.addItem(new Body)
   
 
   /** The character that the player controls in the game. */
