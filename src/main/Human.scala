@@ -4,6 +4,7 @@ import scala.math.min
 import scala.math.max
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
+import scala.util.Random
 
 class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, val sex: Gender) {
   
@@ -64,19 +65,38 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
    * @param direction  a direction name (may be a nonexistent direction)
    * @return a description of the results of the attempt 
    */
-  def go(direction: String) = { //true jos toimii, false jos ei
+  def go(direction: String) =
+  { //true jos toimii, false jos ei
     val destination = this.location.neighbor(direction)
     val originalLocation = this.location
     this.currentLocation = destination.getOrElse(this.currentLocation) 
-    if (destination.isDefined) {
+    if (destination.isDefined)
+    {
       originalLocation.removePerson(this)
       this.currentLocation.addPerson(this)
       true
-    } else false
+    }
+    else
+    	false
+  }
+  
+  /**
+   * Moves to a random direction wouldn't work if the human could ge stuck
+   */
+  def move(): Unit = 
+  {
+	  // Creates the directions
+	  val directions = Vector("north", "east", "south", "west");
+	  val random = new Random();
+	   
+	  while (!go(directions(random.nextInt(directions.size))))
+	  {
+	 	  // Loopedy loop
+	  }
   }
   
   
-  def buyDrink: Boolean = { // ostaa yhden juoman, jos samassa alueessa on bartender jolla on drinkki tai useampi
+  def buyDrink(): Boolean = { // ostaa yhden juoman, jos samassa alueessa on bartender jolla on drinkki tai useampi
     val bartenders = this.location.people.filter( _._2.isInstanceOf[Bartender] )
     val vendor = bartenders.find( _._2.removeItem("drink").isDefined ) //jos on bartender jolla on juoma, poistaa siltä juoman ja palauttaa bartenderin Optionissa
     if (vendor.isDefined) {
