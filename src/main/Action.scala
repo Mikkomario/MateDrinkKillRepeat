@@ -1,5 +1,6 @@
 package main
 
+import scala.io.Source
 
 /**
  * The class `Action` represents actions that a player may take in a text adventure game.
@@ -51,9 +52,10 @@ class Action(input: String) {
     }
     else if (this.verb == "help")
     {
-    	return Some("This is suppposed to help you...");
+      val helpFile = Source.fromFile("help.txt")
+      val helpText = helpFile.getLines().mkString("\n")
+    	return Some(helpText);
     }
-	 	   
  	if (this.modifiers.size >= 2)
  	{
  		if (this.verb == "get")
@@ -98,7 +100,7 @@ class Action(input: String) {
 	    }
  	}
     
-      return None; 
+      return None;
   }
 
 

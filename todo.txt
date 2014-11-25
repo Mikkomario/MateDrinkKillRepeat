@@ -1,4 +1,4 @@
-Mate Drink Kill Repeat
+﻿Mate Drink Kill Repeat
 
 TODO:
 
@@ -46,7 +46,7 @@ Mikko
 Tuoppi
 	* Walkthrough (työläs, mutta helppo)
 	* Evidencet ja niiden käyttäminen (helpohko)	...
-	* Pelin päättyminen (helppo)					...
+	* Pelin päättyminen (helppo)
 	* NPC:iden luominen (helppo)					DONE
 	* Viimeistely / palautus
 
