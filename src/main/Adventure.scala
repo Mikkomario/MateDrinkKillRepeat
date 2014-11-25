@@ -27,7 +27,7 @@ class Adventure
   private var turnsUntilPoliceArrive = -1
   private val people = Buffer[NPC]()
   private val maleNames = Buffer[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
-  private val femaleNames = Buffer[String]("Patricia","Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
+  private val femaleNames = Buffer[String]("Patricia","Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs.Bond", "Amélie", "Ellie")
   private val random = new Random
   
   def callPolice() =
@@ -126,11 +126,11 @@ class Adventure
    */
   def goodbyeMessage = {
     if (this.isComplete) {
-      "Home at last... and phew, just in time! Well done!"
+      "You got away with it! Good job. Time to plan the next hit, eh?"
     } else if (this.turnCount == this.timeLimit) {
       "Oh no! Time's up. Starved of entertainment, you collapse and weep like a child.\nGame over!"
     } else { // game over due to player quitting
-      "Quitter!" 
+      "You give up?! That's a life sentence, you know..." 
     }
   }
 
@@ -156,6 +156,12 @@ class Adventure
       {
         println("The police have arrived.")
         this.player.increaseStress(10)
+        val policeOne = new Police("Kimble", this.bar, random.nextInt(25), Male, this)
+        val policeTwo = new Police("Cooper", this.bar, random.nextInt(25), Male, this)
+        this.bar.addPerson(policeOne)
+        this.bar.addPerson(policeTwo)
+        this.policeOfficers += policeOne
+        this.policeOfficers += policeTwo
       }
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")

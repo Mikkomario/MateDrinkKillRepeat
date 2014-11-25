@@ -67,7 +67,7 @@ class Area(var name: String, var description: String) {
       "\nYou see here: " + this.inventory.inventory.map(_._2).flatten.mkString(" ")
       } else ""
     }
-    val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
+    val exitList = "\n\nExits available: " + this.neighbors.mapValues( _.name ).mkString(", ")
     this.description + itemList + exitList
   } 
   
