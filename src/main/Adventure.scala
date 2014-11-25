@@ -1,5 +1,7 @@
 package main
 
+import scala.util.Random
+import scala.collection.mutable.Buffer
 
 /**
  * The class `Adventure` represents text adventure games. An adventure consists of a player and 
@@ -18,10 +20,11 @@ class Adventure {
     
   private var policeComing = false
   private var turnsUntilPoliceArrive = -1
-  private var people = Vector[NPC]()
+  private val people = Buffer[NPC]()
   private var policeOfficers: Option[Vector[Police]] = None
-  private val maleNames = Vector[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
-  private val femaleNames = Vector[String]("Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
+  private val maleNames = Buffer[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
+  private val femaleNames = Buffer[String]("Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
+  private val random = new Random
   
   def callPolice() =
   {
@@ -41,10 +44,44 @@ class Adventure {
             bar.setNeighbors(Vector("north" -> tables,                                                "west" -> danceFloor ))
      danceFloor.setNeighbors(Vector("north" -> tables,      "east" -> bar,    "south" -> balcony,     "west" -> toilets    ))
         balcony.setNeighbors(Vector("north" -> danceFloor                                                                  ))
-
+  
+  private val areas = Vector[Area](toilets, tables, bar, danceFloor, balcony)
+        
   this.toilets.inventory.addItem(new Body)
   
-
+  for (i <- 0 to 11)
+  {
+    val gender = new Gender(random.nextInt(2))
+    var name = ""
+    var person: Option[NPC] = None
+    var startingArea = bar
+    if (gender == Male)
+    {
+      name = this.maleNames.remove(random.nextInt(this.maleNames.size))
+    }
+    else
+    {
+      name = this.femaleNames.remove(random.nextInt(this.femaleNames.size))
+    }
+    if (i < 10)
+    {
+      startingArea = this.areas.filterNot(_ == toilets)(random.nextInt(this.areas.size - 1))
+      person = Some(new Customer(name, startingArea, random.nextInt(50), random.nextInt(20), gender))
+      val hasDrinks = random.nextBoolean()
+      if (hasDrinks) person.get.inventory.addItem(new Drink)
+    }
+    else
+    {
+      if (i == 10)
+      {
+        startingArea = this.tables
+      }
+      person = Some(new Bartender(name, startingArea, 0, random.nextInt(40), gender))
+    }
+    this.people += person.get
+    startingArea.addPerson(person.get)
+  }
+  
   /** The character that the player controls in the game. */
   val player = new Player(toilets)
   this.player.inventory.addItem(new Weapon)
