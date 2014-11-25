@@ -9,9 +9,10 @@ import scala.io.Source
  * 
  * @param input   a textual in-game command such as "go east" or "rest"
  */
-class Action(input: String) {
+class Action(input: String)
+{
 
-  private val commandText = input.trim.toLowerCase
+  private val commandText = if (input != null) input.trim.toLowerCase else "";
   private val verb        = commandText.takeWhile( _ != ' ' )
   private val modifiers   = commandText.drop(verb.length).split(" ");
 
@@ -26,6 +27,9 @@ class Action(input: String) {
    */
   def execute(actor: Player): Option[String] =
   {
+    if (this.commandText == "")
+      return None;
+    
  	if (this.verb == "go")
     {
       return Some(actor.go(this.modifiers(1)))

@@ -5,28 +5,37 @@ Drinking relieves stress, but makes actions harder. Carrying evidence stresses y
 
 If you pass out or go into shock (results of excessive alcohol and stress, respectively), you lose.
 
-Commands:
+	COMMANDS:
 
-go *direction*				- move to the area in the given direction, example: go north
-get *item*					- picks up an item from the area
-give *item* to *person*		- gives the item to the specified npc, check keywords
-use *item*					- uses the item for whatever purpose
-drink						- drink an alcoholic beverage, if you have one; this lowers your stress level
-speak with *person*			- speaks to the person, check keywords
-plant *item* on *person*	- secretly plants an object on a person, check keywords
-hide *item*					- hides the item, making it harder to find;
-							if the item is in your inventory, drops it first
-drop *item*					- drops the item
-examine *item*				- describes the item
-buy drink					- buys a drink if there is a bartender present in your area
-look at *item/person*		- describes the item or person, check keywords
-rest						- stay put
-quit						- stop playing
-help						- this is supposed to help you...
+go *direction*              - move to the area in the given direction, example: go north
+rest                        - stay put
+quit                        - stop playing
+help                        - this is supposed to help you...
 
-Keywords:
+	Item commands
+get *item*                  - picks up an item from the area
+give *item* to *person*     - gives the item to the specified npc, check keywords
+use *item*                  - uses the item for whatever purpose
+drink                       - drink an alcoholic beverage, if you have one; this lowers your stress level;
+                              each drink can be drunk up to two times
+plant *item* on *person*    - secretly plants an object on a person, check keywords
+hide *item*                 - hides the item, making it harder to find;
+                              if the item is in your inventory, drops it first
+drop *item*                 - drops the item
+examine *item*              - describes the item
+inventory                   - lists the items you have
+buy drink                   - buys a drink if there is a bartender present in your area
+look at *item/person*       - describes the item or person, check keywords
 
-someone		- a random person in the area
-bartender	- a random bartender in the area
-police		- a random police in the area
-customer	- a random customer in the area
+	Person commands
+speak with *person*         - speaks to the person, check keywords
+give *item* to *person*     - gives the item to the specified npc, check keywords
+plant *item* on *person*    - secretly plants an object on a person, check keywords
+look at *item/person*       - describes the item or person, check keywords
+
+	KEYWORDS:
+
+someone     - a random person in the area
+bartender   - a random bartender in the area
+police      - a random police in the area
+customer    - a random customer in the area

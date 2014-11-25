@@ -16,7 +16,7 @@ class Drink extends Item("drink", "An alcoholic beverage", false, true)
   {
     if (drinker.drink(this))
     {
-    	drinker.inventory.removeItem(this.name);
+      if (this.usesLeft < 1) drinker.inventory.removeItem(this.name);
     	true -> "You take a healthy chug of alcoholic goodness. You feel a little calmer."
     }
     else

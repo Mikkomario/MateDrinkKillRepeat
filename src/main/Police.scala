@@ -104,7 +104,7 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
     	}
     }
     else
-    	this.describeHappenings(this.designation + " searched " + suspectName + " but didn't find anything");
+    	this.describeHappenings(this.designation.capitalize + " searched a dude but didn't find anything");
     
     this.searchesInThisArea += 1;
   }
@@ -133,7 +133,7 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
 	  
 	  var suspectName = "you";
 	if (this.suspicion.get.isInstanceOf[NPC])
-		suspectName = suspect.asInstanceOf[NPC].designation;
+		suspectName = this.suspicion.get.asInstanceOf[NPC].designation;
 	
 	return suspectName;
   }

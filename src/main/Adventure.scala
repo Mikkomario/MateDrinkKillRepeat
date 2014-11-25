@@ -161,7 +161,8 @@ class Adventure
   def playTurn(command: String): String = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
-    if (outcomeReport.isDefined) { 
+    if (outcomeReport.isDefined)
+    { 
       this.turnsUntilPoliceArrive -= 1
       this.policeOfficers.foreach(_.lookAround)
       this.people.foreach(_.lookAround)
