@@ -106,6 +106,10 @@ class Area(var name: String, var description: String)
   
   def randomDude: Option[Human] = randomPersonFrom(this.population);
   
+  def customers = this.population.filter(_._2.isInstanceOf[Customer])
+  
+  def randomCustomer: Option[Human] = this.randomPersonFrom(this.customers)
+  
   def polices = this.population.filter(_._2.isInstanceOf[Police]);
   
   def randomPolice: Option[Human] = randomPersonFrom(this.polices);
