@@ -40,6 +40,24 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   
   def stressLevel = this.stress
   
+  def stressDescription =
+  {
+    if (this.stress < 25) "calm"
+    else if (this.stress < 50) "nervous"
+    else if (this.stress < 75) "anxious"
+    else if (this.stress < 100) "super stressed"
+    else "in shock"
+  }
+  
+  def intoxDescription =
+  {
+    if (this.alcohol < 25) "sober"
+    else if (this.alcohol < 50) "slightly drunk"
+    else if (this.alcohol < 75) "drunk"
+    else if (this.alcohol < 100) "shit-faced" // krhm k-15 kö?
+    else "passed out"
+  }
+  
   def suspect = ( (this.alcohol + this.stress) / 2 ) / (1 + this.searchTimes)
   
   def perception = this.stress - this.alcohol + 50 // -50 - +150

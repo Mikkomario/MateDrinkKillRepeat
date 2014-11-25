@@ -72,7 +72,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   def go(direction: String) =
   {
-    if (this.travel(direction)) "You go to the " + this.location.neighbor(direction).get.name + "."
+    if (this.travel(direction)) "You go to the " + this.location.name + "."
     else "You can't go there!"
   }
   
@@ -87,7 +87,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   def makeInventory() = {
     if (this.inventory.isEmpty) "You are empty-handed."
-    else "You are carrying:\n" + this.inventory.inventory.map( _._2 ).mkString("\n")
+    else "You are carrying:\n" + this.inventory.inventory.map( _._2 ).flatten.mkString("\n")
   }
   
 }

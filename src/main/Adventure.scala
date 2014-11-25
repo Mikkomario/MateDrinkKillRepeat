@@ -20,7 +20,7 @@ class Adventure
   /** The title of the adventure game. */
   val title = "Mate Drink Kill Repeat"
   
-  var policeOfficers = Buffer[Police]();
+  val policeOfficers = Buffer[Police]();
   var playerInterrogated = false;
     
   private var policeComing = false
@@ -112,12 +112,12 @@ class Adventure
    */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.lost
 
-  def lost = this.player.isOutOfAction || this.playerInterrogated
+  def lost = this.player.isOutOfAction || this.playerInterrogated || this.player.isSerialKiller
 
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.
    */
-  def welcomeMessage = "You are at a party. It's pretty cool.\nThe problem is, you just killed someone!\nYou better get rid of the evidence, before the coppers catch you!"
+  def welcomeMessage = "You are at a party. It's pretty cool.\nThe problem is, you just killed someone!\nYou better get rid of the evidence, before the coppers catch you!\nYou are carrying: " + this.player.inventory.inventory.map( _._2 ).flatten.mkString(", ")
 
     
   /**
@@ -146,7 +146,17 @@ class Adventure
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
     if (outcomeReport.isDefined) { 
-      this.turnCount += 1 
+      this.policeOfficers.foreach(_.lookAround)
+      this.people.foreach(_.lookAround)
+      this.policeOfficers.filter(!_.isOutOfAction).foreach(_.act)
+      this.people.filter(!_.isOutOfAction).foreach(_.act)
+      this.turnCount += 1
+      this.turnsUntilPoliceArrive -= 1
+      if (this.turnsUntilPoliceArrive == 0)
+      {
+        println("The police have arrived.")
+        this.player.increaseStress(10)
+      }
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")
   }
