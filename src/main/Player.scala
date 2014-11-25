@@ -46,7 +46,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	 	  return this.location.randomBartender;
 	  else if (targetName == "someone")
 	  {
-	 	  if (this.location.populationSize <= 1)
+	 	  if (this.location.populationSize < 1)
 	 	 	  return None;
 	 	  else
 	 	  {

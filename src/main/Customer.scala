@@ -13,9 +13,9 @@ class Customer(name: String, startingArea: Area, initialDrunkenness: Int, initia
 	 	  drink();
 	 	  return;
 	  }
-	  if ((this.stressLevel > 50 || this.intoxication < 30))
+	  if ((this.stressLevel > 20 || this.intoxication < 40))
 	  {
-	 	  if (this.buyDrink())
+	 	  if (this.buyDrink()._1)
 	 	 	  return;
 	  }
 	   

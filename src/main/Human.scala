@@ -106,13 +106,23 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   }
   
   
-  def buyDrink(): Boolean = { // ostaa yhden juoman, jos samassa alueessa on bartender jolla on drinkki tai useampi
-    val bartenders = this.location.people.filter( _._2.isInstanceOf[Bartender] )
-    val vendor = bartenders.find( _._2.inventory.removeItem("drink").isDefined ) //jos on bartender jolla on juoma, poistaa siltä juoman ja palauttaa bartenderin Optionissa
-    if (vendor.isDefined) {
+  def buyDrink(): (Boolean, String) =
+  {
+	  // ostaa yhden juoman, jos samassa alueessa on bartender jolla on drinkki tai useampi
+    val bartenders = this.location.bartenders;
+    
+    if (bartenders.isEmpty)
+    	return false -> "There's not a single bartender around."
+    
+    val vendor = bartenders.find( _._2.inventory.removeItem("drink").isDefined )
+    //jos on bartender jolla on juoma, poistaa siltä juoman ja palauttaa bartenderin Optionissa
+    if (vendor.isDefined)
+    {
       this.inventory.addItem(new Drink)
-      true
-    } else false
+      true -> "You pick a nice drink from the nearby bartender.";
+    }
+    else 
+    	false -> "The bartender doesn't have any drinks right now."
   }
   
   def drink(drink: Drink) =

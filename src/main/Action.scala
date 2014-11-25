@@ -75,8 +75,7 @@ class Action(input: String) {
     }
     else if (this.verb == "buy" && this.modifiers(1) == "drink")
     {
-    	// TODO: Implement
-    	None;
+    	Some(actor.buyDrink()._2);
     }
     else if (this.verb == "look" && this.modifiers(1) == "at")
     {
