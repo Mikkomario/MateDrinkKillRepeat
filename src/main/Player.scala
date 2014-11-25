@@ -148,6 +148,26 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	   
 	  return "You place " + itemName + " into " + targetName + "'s hands.";
   }
+  
+  def plantOn(itemName: String, targetName: String): String = 
+  {
+	  val target = findTarget(targetName);
+	   
+	  if (target.isEmpty)
+	 	  return "You can't see a single " + targetName;
+	   
+	  val item = this.inventory.getItem(itemName);
+	  if (item.isEmpty)
+	 	  return "You don't have a single " + itemName + " to plant.";
+	   
+	  if (!item.get.isInstanceOf[Evidence])
+	  {
+	 	  giveTo(itemName, targetName);
+	 	  return "You sneakily plant " + itemName + " on " + targetName;
+	  }
+	   
+	  return item.get.asInstanceOf[Evidence].plant(this, target.get);
+  }
 }
 
 

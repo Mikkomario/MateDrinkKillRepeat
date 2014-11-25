@@ -24,10 +24,10 @@ class Action(input: String) {
    *         This is wrapped in an `Option`; if the command was not recognized, `None` is returned. 
    */
   def execute(actor: Player): Option[String] =
-  {                             
+  {
     if (this.verb == "go")
     {
-      Some(actor.go(this.modifiers(0)))
+      Some(actor.go(this.modifiers(1)))
     }
     else if (this.verb == "rest")
     {
@@ -43,25 +43,25 @@ class Action(input: String) {
     }
     else if (this.verb == "get")
     {
-      Some(actor.get(this.modifiers(0)))
+      Some(actor.get(this.modifiers(1)))
     }
     else if (this.verb == "drop")
     {
-      Some(actor.drop(this.modifiers(0)))
+      Some(actor.drop(this.modifiers(1)))
     }
     else if (this.verb == "examine")
     {
-      Some(actor.examine(this.modifiers(0)))
+      Some(actor.examine(this.modifiers(1)))
     }
-    else if (this.verb == "give" && this.modifiers(1) == "to")
+    else if (this.verb == "give" && this.modifiers(2) == "to")
     {
-    	Some(actor.giveTo(this.modifiers(0), this.modifiers(2)));
+    	Some(actor.giveTo(this.modifiers(1), this.modifiers(3)));
     }
     else if (this.verb == "use")
     {
-    	Some(actor.use(this.modifiers(0))._2);
+    	Some(actor.use(this.modifiers(1))._2);
     }
-    else if (this.verb == "plant" && this.modifiers(1) == "on")
+    else if (this.verb == "plant" && this.modifiers(2) == "on")
     {
     	// TODO: Implement
     	None;
@@ -71,22 +71,22 @@ class Action(input: String) {
     	// TODO: Implement
     	None;
     }
-    else if (this.verb == "speak" && this.modifiers(0) == "with")
+    else if (this.verb == "speak" && this.modifiers(1) == "with")
     {
     	// TODO: Implement
     	None;
     }
-    else if (this.verb == "buy" && this.modifiers(0) == "drink")
+    else if (this.verb == "buy" && this.modifiers(1) == "drink")
     {
     	// TODO: Implement
     	None;
     }
-    else if (this.verb == "look" && this.modifiers(0) == "at")
+    else if (this.verb == "look" && this.modifiers(1) == "at")
     {
     	// TODO: Implement
     	None;
     }
-    else if (this.verb == "look" && this.modifiers(0) == "around")
+    else if (this.verb == "look" && this.modifiers(1) == "around")
     {
     	// TODO: Implement
     	None;
