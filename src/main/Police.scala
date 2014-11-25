@@ -2,7 +2,8 @@ package main
 
 import scala.collection.mutable.Buffer
 
-class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
+class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
+		private val adventure: Adventure)
       extends NPC(name, startingArea, 0, initialStress, sex)
 {
   
@@ -49,6 +50,10 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
     {
     	this.suspicion = Some(suspect)
     	suspect.inventory.removeEvidence().foreach {Police.evidenceFound += _ };
+    	
+    	// If all evidence was found, starts suspecting the player
+    	if (Police.evidenceFound.size == 3)
+    		this.adventure.policeOfficers.foreach { _.suspicion = Some(this.adventure.player) };
     }
     this.searchesInThisArea += 1;
   }
@@ -59,6 +64,9 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
 	  {
 	 	  this.suspicion.get.beInterrogated();
 	 	  this.interrogations += 1;
+	 	   
+	 	  if (this.suspicion.get == this.adventure.player)
+	 	 	  this.adventure.playerInterrogated = true;
 	 	   
 	 	  if (this.interrogations >= 3)
 	 	 	  this.suspicion = None;
