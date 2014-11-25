@@ -23,7 +23,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
     val customers = people.count( _._2.isInstanceOf[Customer] )
     val cops = people.count( _._2.isInstanceOf[Police] )
     val bartender = people.exists( _._2.isInstanceOf[Bartender] )
-    val identified = people.keys.filter( this.knownPeople.contains(_) )
+    val identified = people.keys.filter( name => this.knownPeople.contains( name.toLowerCase() ) )
     if (people.isEmpty) description = "No one is here."
     else
     {
@@ -46,7 +46,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	 	  return this.location.randomBartender;
 	  else if (targetName == "someone")
 	  {
-	 	  if (this.location.populationSize == 1)
+	 	  if (this.location.populationSize <= 1)
 	 	 	  return None;
 	 	  else
 	 	  {
@@ -59,7 +59,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	 	  }
 	  }
 	   
-	  return this.location.people.get(targetName);
+	  return this.location.people.map(pair => pair._1.toLowerCase() -> pair._2).get(targetName);
   }
   
   def murder = this.hasKilledAgain = true
@@ -229,7 +229,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	   
 	  // Otherwise introduces the target to the player
 	  val newName = target.get.name;
-	  this.knownPeople += newName;
+	  this.knownPeople += newName.toLowerCase();
 	   
 	  return "'Hi. My name is " + newName + ". Nice to meet you.'";
   }
