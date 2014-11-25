@@ -70,6 +70,11 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
     else "If you want to examine something, you need to pick it up first."
   }
   
+  def go(direction: String) =
+  {
+    if (this.travel(direction)) "You go to the " + this.location.neighbor(direction).get.name + "."
+    else "You can't go there!"
+  }
   
   def get(itemName: String) = {
     val item = this.location.inventory.removeItem(itemName)

@@ -142,7 +142,7 @@ class Adventure
    * @param command  an in-game command such as "go west"
    * @return a textual report of what happened, or an error message if the command was unknown 
    */
-  def playTurn(command: String) = {
+  def playTurn(command: String): String = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
     if (outcomeReport.isDefined) { 

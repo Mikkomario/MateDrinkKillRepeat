@@ -57,7 +57,7 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
    * @param direction  a direction name (may be a nonexistent direction)
    * @return a description of the results of the attempt 
    */
-  def go(direction: String) =
+  def travel(direction: String) =
   { //true jos toimii, false jos ei
     val destination = this.location.neighbor(direction)
     val originalLocation = this.location
@@ -81,7 +81,7 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
 	  val directions = Vector("north", "east", "south", "west");
 	  val random = new Random();
 	   
-	  while (!go(directions(random.nextInt(directions.size))))
+	  while (!travel(directions(random.nextInt(directions.size))))
 	  {
 	 	  // Loopedy loop
 	  }
