@@ -21,11 +21,21 @@ abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
     }
   }
   
-  def hide() =
+  def hide(): String =
   {
 	  this.hiddenness += 30
-	  if (this.hiddenness > 90)
+	  
+	  if (this.hiddenness > 89)
+	  {
 	 	  this.hiddenness = 90;
+	 	  return "You hide the " + this.name + 
+	 	  		" but it seems like you can't hide the it much better than this";
+	  }
+	   
+	  if (this.hiddenness < 50)
+	  	return "You hide the " + this.name + " into a somewhat visible spot in a hurry";
+	  else
+	 	  return "You hide the " + this.name + " in a very good hiding spot.";
   }
   
   def noticeability = 100 - this.hiddenness

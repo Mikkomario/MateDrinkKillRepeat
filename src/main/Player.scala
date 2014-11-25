@@ -170,13 +170,38 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	  if (item.isEmpty)
 	 	  return "You don't have a single " + itemName + " to plant.";
 	   
-	  if (!item.get.isInstanceOf[Evidence])
+	  if (!item.get.isEvidence)
 	  {
 	 	  giveTo(itemName, targetName);
 	 	  return "You sneakily plant " + itemName + " on " + targetName;
 	  }
 	   
 	  return item.get.asInstanceOf[Evidence].plant(this, target.get);
+  }
+  
+  def hide(itemName: String): String = 
+  {
+	  val inventoryItem = this.inventory.getItem(itemName);
+	  if (inventoryItem.isEmpty)
+	  {
+	 	  // Items can also be in the area
+	 	  val areaItem = this.location.inventory.getItem(itemName);
+	 	  if (areaItem.isEmpty)
+	 	  	return "You don't have a single " + itemName + " to hide.";
+	 	   
+	 	  if (!areaItem.get.isEvidence)
+	 	 	  return "It's just a " + itemName + ", no neeh to hide that."
+	 	 	  
+	 	  return areaItem.get.asInstanceOf[Evidence].hide();
+	  }
+	   
+	  // Inventory items are dropped when they are hid
+	  drop(itemName);
+	  
+	  if (!inventoryItem.get.isEvidence)
+	 	  return "You stealthily place " + itemName + " nearby.";
+	    
+	  return inventoryItem.get.asInstanceOf[Evidence].hide();
   }
 }
 
