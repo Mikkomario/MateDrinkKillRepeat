@@ -162,6 +162,7 @@ class Adventure
       this.people.foreach(_.lookAround)
       this.policeOfficers.filter(!_.isOutOfAction).foreach(_.act)
       this.people.filter(!_.isOutOfAction).foreach(_.act)
+      if (this.player.hasEvidence) this.player.increaseStress(3)
       this.turnCount += 1
       if (this.turnsUntilPoliceArrive == 0)
       {
