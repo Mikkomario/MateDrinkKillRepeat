@@ -79,8 +79,7 @@ class Action(input: String) {
     }
     else if (this.verb == "look" && this.modifiers(1) == "at")
     {
-    	// TODO: Implement
-    	None;
+    	Some(actor.lookAt(this.modifiers(2)));
     }
     else if (this.verb == "drink")
     {
