@@ -27,7 +27,7 @@ class Adventure
   private var turnsUntilPoliceArrive = -1
   private val people = Buffer[NPC]()
   private val maleNames = Buffer[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
-  private val femaleNames = Buffer[String]("Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
+  private val femaleNames = Buffer[String]("Patricia","Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
   private val random = new Random
   
   def callPolice() =
@@ -62,7 +62,7 @@ class Adventure
     var name = ""
     var person: Option[NPC] = None
     var startingArea = bar
-    if (gender == Male)
+    if (gender.isMale)
     {
       name = this.maleNames.remove(random.nextInt(this.maleNames.size))
     }
