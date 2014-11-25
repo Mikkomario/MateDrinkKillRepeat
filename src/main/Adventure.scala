@@ -73,7 +73,7 @@ class Adventure
     if (i < 10)
     {
       startingArea = this.areas.filterNot(_ == toilets)(random.nextInt(this.areas.size - 1))
-      person = Some(new Customer(name, startingArea, random.nextInt(50), random.nextInt(20), gender))
+      person = Some(new Customer(name, startingArea, random.nextInt(50), random.nextInt(20), gender, this))
       val hasDrinks = random.nextBoolean()
       if (hasDrinks) person.get.inventory.addItem(new Drink)
     }
@@ -83,7 +83,7 @@ class Adventure
       {
         startingArea = this.tables
       }
-      person = Some(new Bartender(name, startingArea, 0, random.nextInt(40), gender))
+      person = Some(new Bartender(name, startingArea, 0, random.nextInt(40), gender, this))
     }
     this.people += person.get
     startingArea.addPerson(person.get)
