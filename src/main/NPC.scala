@@ -11,6 +11,19 @@ abstract class NPC(name: String, startingArea: Area, initialDrunkenness: Int,
   
   def onEvidenceFound(foundEvidence: Evidence): Unit;
   
+  def designation: String;
+  
+  
+  def isInSameRoomAsPlayer: Boolean = this.location.people.contains(this.adventure.player.name);
+  
+  def describeHappenings(description: String) = 
+  {
+	  if (this.isInSameRoomAsPlayer)
+	 	  println(description);
+  }
+  
+  def isKnownToPlayer() = this.adventure.player.knownPeople.contains(this.name.toLowerCase());
+  
   private def wouldNotice(evidence: Evidence): Boolean = 
   {
 	  val random = new Random();

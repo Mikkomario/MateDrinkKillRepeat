@@ -23,23 +23,15 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
     val customers = people.count( _._2.isInstanceOf[Customer] )
     val cops = people.count( _._2.isInstanceOf[Police] )
     val bartender = people.exists( _._2.isInstanceOf[Bartender] )
+    val identified = people.keys.filter( name => this.knownPeople.contains( name.toLowerCase() ) )
     if (people.isEmpty) description = "No one is here."
     else
     {
-      val names = people.keys.filter( name => this.knownPeople.contains( name.toLowerCase() ) )
       if (customers > 0) description += customers + " customers, "
       if (bartender) description  += "a bartender, "
       if (cops > 0) description += cops + " police, "
-      if (names.isEmpty) description += "and recognize no one."
-      else
-      { 
-        val nameAndRole =
-        {
-          val known = people.filter( pair => names.exists( name => pair._1 == name ) )
-          known.mapValues( npc => if (npc.isInstanceOf[Bartender]) "bartender" else if (npc.isInstanceOf[Police]) "police" else "customer" )
-        }
-        description += "and you recognize:\n" + nameAndRole.mkString(", ")
-      }
+      if (identified.isEmpty) description += "and recognize no one."
+      else description += "and you recognize:\n" + identified.mkString(", ")
     }
     description
   }

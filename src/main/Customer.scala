@@ -1,5 +1,7 @@
 package main
 
+import scala.util.Random
+
 class Customer(name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, 
 		sex: Gender, adventure: Adventure)
       extends NPC(name, startingArea, initialDrunkenness, initialStress, sex, adventure)
@@ -19,13 +21,24 @@ class Customer(name: String, startingArea: Area, initialDrunkenness: Int, initia
 	 	 	  return;
 	  }
 	   
-	  move();
+	   // Chills out 60% of the time
+	   if (new Random().nextDouble() < 0.4)
+	 	 move();
   }
   
   override def onEvidenceFound(piece: Evidence)
   {
 	  // Stressaa ihan sikana
+	  this.describeHappenings(this.designation + " found the " + piece.name + " and is terrified.")
 	  increaseStress(40);
 	  this.adventure.callPolice();
+  }
+  
+  override def designation: String = 
+  {
+	  if (isKnownToPlayer())
+	 	  return this.name;
+	  else
+	 	  return "a customer";
   }
 }

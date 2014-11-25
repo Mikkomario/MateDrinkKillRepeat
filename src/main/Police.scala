@@ -28,8 +28,18 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
 	 	 	  this.searchesInThisArea = 0;
 	 	  }
 	  }
-	  else if (this.searchesInThisArea < 3)
+	  else if (this.searchesInThisArea < 3 && this.location.populationSize > 1)
+	   {
+	 	  // Also counts drinks as "evidence"
+	 	  if (this.location.inventory.contains("drink"))
+	 	   {
+	 	 	  this.inventory.addItem(this.location.inventory.removeItem("drink").get)
+	 	 	  this.describeHappenings(this.designation + " picked up a drink. Important evidence, you know.")
+	 	 	  this.searchesInThisArea += 1;
+	 	   }
+	 	  
 	 	  search();
+	   }
 	  else
 	  {
 	 	  move();
@@ -44,11 +54,25 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
 	  this.inventory.removeItem(piece.name);
 	  Police.evidenceFound += piece;
 	   
+	  println(this.designation + " found the " + piece.name + " and took care of it.");
+	   
 	  if (Police.evidenceFound.size == 3)
-	 	  this.adventure.policeOfficers.foreach { _.suspicion = Some(this.adventure.player) };
+	   {
+	 	  this.adventure.policeOfficers.foreach { _.makeSuspect(Some(this.adventure.player)) };
+	 	  println("The police now suspect you!");
+	   }
 	 
 	 increaseStress(5);
   }
+  
+  override def designation: String = 
+  {
+	  if (this.isKnownToPlayer())
+	 	  return "police " + this.name;
+	  else
+	 	  return "a police";
+  }
+  
   
   
   def suspectsPlayer = if (this.suspicion.isDefined && this.suspicion.get.isInstanceOf[Player]) true else false
@@ -60,15 +84,24 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
 	this.increaseStress(5);
     val suspect = this.location.people.maxBy( _._2.suspect )._2
     suspect.beSearched();
+    
     if (suspect.hasEvidence)
     {
     	this.suspicion = Some(suspect)
     	suspect.inventory.removeEvidence().foreach {Police.evidenceFound += _ };
     	
+    	println(this.designation + " searched " + suspectName + " and found incriminating evidence.");
+    	
     	// If all evidence was found, starts suspecting the player
-    	if (Police.evidenceFound.size == 3)
+    	if (suspect == this.adventure.player || Police.evidenceFound.size == 3)
+    	{
+    		 println("The police now suspect you!");
     		this.adventure.policeOfficers.foreach { _.suspicion = Some(this.adventure.player) };
+    	}
     }
+    else
+    	this.describeHappenings(this.designation + " searched " + suspectName + " but didn't find anything");
+    
     this.searchesInThisArea += 1;
   }
   
@@ -76,6 +109,8 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
   {
 	  if (this.suspicion.isDefined)
 	  {
+	 	  this.describeHappenings(this.designation + " interrogates " + this.suspectName)
+	 	  
 	 	  this.suspicion.get.beInterrogated();
 	 	  this.interrogations += 1;
 	 	   
@@ -86,6 +121,18 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
 	 	 	  this.suspicion = None;
 	  }
   } 
+  
+  private def suspectName: String = 
+  {
+	  if (this.suspicion.isEmpty)
+	 	  return "No one";
+	  
+	  var suspectName = "you";
+	if (this.suspicion.get.isInstanceOf[NPC])
+		suspectName = suspect.asInstanceOf[NPC].designation;
+	
+	return suspectName;
+  }
 }
 
 object Police
