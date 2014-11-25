@@ -51,6 +51,17 @@ class Inventory {
       None
   }
   
+  def removeEvidence(): Vector[Item] =
+  {
+	  val evidence = this.items.flatMap( _._2.filter( _.isInstanceOf[Evidence] )).toVector;
+	  for (piece <- evidence)
+	  {
+	 	  this.removeItem(piece.name);
+	  }
+	   
+	  return evidence;
+  }
+  
   def isEmpty = this.items.isEmpty
   
 }

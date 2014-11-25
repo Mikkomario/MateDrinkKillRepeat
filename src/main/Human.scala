@@ -133,5 +133,4 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     }
     else false
   }
-  
 }

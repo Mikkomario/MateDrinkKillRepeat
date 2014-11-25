@@ -1,5 +1,7 @@
 package main
 
+import scala.collection.mutable.Buffer
+
 class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
       extends NPC(name, startingArea, 0, initialStress, sex)
 {
@@ -43,9 +45,11 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
   {
     val suspect = this.location.people.maxBy( _._2.suspect )._2
     suspect.beSearched();
-// if (suspect.has(EVIDENCE)) {
-    this.suspicion = Some(suspect)
-    //}
+    if (suspect.hasEvidence)
+    {
+    	this.suspicion = Some(suspect)
+    	suspect.inventory.removeEvidence().foreach {Police.evidenceFound += _ };
+    }
     this.searchesInThisArea += 1;
   }
   
@@ -60,4 +64,9 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender)
 	 	 	  this.suspicion = None;
 	  }
   } 
+}
+
+object Police
+{
+	val evidenceFound = Buffer[Item]();	
 }
