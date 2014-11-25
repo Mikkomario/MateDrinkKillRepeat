@@ -19,7 +19,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   def areaPeopleDescription =
   {
     var description = "You see "
-    val people = this.location.people
+    val people = this.location.people.filterNot(_._2 == this)
     val customers = people.count( _._2.isInstanceOf[Customer] )
     val cops = people.count( _._2.isInstanceOf[Police] )
     val bartender = people.exists( _._2.isInstanceOf[Bartender] )
