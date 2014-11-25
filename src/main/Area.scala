@@ -2,6 +2,7 @@ package main
 
 import scala.collection.mutable.Map
 import scala.collection.mutable.Buffer
+import scala.util.Random
 
 /**
  * The class `Area` represents locations in a text adventure game world. 
@@ -15,7 +16,8 @@ import scala.collection.mutable.Buffer
  * @param description  a basic description of the area (typically not including 
  *                     information about items)
  */
-class Area(var name: String, var description: String) {
+class Area(var name: String, var description: String)
+{
   
   private val neighbors = Map[String, Area]()
   private val items = new Inventory
@@ -89,7 +91,26 @@ class Area(var name: String, var description: String) {
   
   def removePerson(person: Human) = this.population -= person.name
   
-  
   def people = this.population
   
+  def populationSize = this.population.size;
+  
+  private def randomPersonFrom(pool: Map[String, Human]): Option[Human] = 
+  {
+	  if (pool.size == 0)
+	 	  return None;
+	  
+	  val random = new Random();
+	  return pool.get(pool.keySet.toVector(random.nextInt(pool.size)));
+  }
+  
+  def randomDude: Option[Human] = randomPersonFrom(this.population);
+  
+  def polices = this.population.filter(_._2.isInstanceOf[Police]);
+  
+  def randomPolice: Option[Human] = randomPersonFrom(this.polices);
+  
+  def bartenders = this.population.filter(_._2.isInstanceOf[Bartender]);
+  
+  def randomBartender = this.randomPersonFrom(this.bartenders);
 }

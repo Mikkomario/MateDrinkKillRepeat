@@ -16,6 +16,32 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   private var hasKilledAgain = false                // one-way flag
    
   
+  private def findTarget(targetName: String): Option[Human] =
+  {
+	  if (targetName == this.name)
+	 	  return None;
+	  else if (targetName == "police")
+	 	  return this.location.randomPolice;
+	  else if (targetName == "bartender")
+	 	  return this.location.randomBartender;
+	  else if (targetName == "someone")
+	  {
+	 	  if (this.location.populationSize == 1)
+	 	 	  return None;
+	 	  else
+	 	  {
+	 	 	  var target: Option[Human] = Some(this);
+	 	 	  while (target.get == this)
+	 	 	  {
+	 	 	 	  target = this.location.randomDude;
+	 	 	  }
+	 	 	  return target;
+	 	  }
+	  }
+	   
+	  return this.location.people.get(targetName);
+  }
+  
   def murder = this.hasKilledAgain = true
   
   def isSerialKiller = this.hasKilledAgain
@@ -90,6 +116,38 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
     else "You are carrying:\n" + this.inventory.inventory.map( _._2 ).mkString("\n")
   }
   
+  def giveTo(itemName: String, targetName: String): String = 
+  {
+	  val target = findTarget(targetName);
+	   
+	  if (target.isEmpty)
+	 	  return "You can't see a single " + targetName;
+	  
+	  
+	  val item = this.inventory.getItem(itemName);
+	  if (item.isEmpty)
+	 	  return "You don't have a single " + itemName + " to give.";
+	   
+	  // Moves the item to the recipient
+	   this.inventory.removeItem(item.get.name);
+	   target.get.inventory.addItem(item.get);
+	  
+	   // If you give evidence, it will be automaticlaly noticed
+	   // if you give it to police, they start to suspect you
+	  if (item.get.isInstanceOf[Evidence])
+	  {
+	 	  if (target.get.isInstanceOf[NPC])
+	 	 	  target.get.asInstanceOf[NPC].onEvidenceFound(item.asInstanceOf[Evidence]);
+	 	   
+	 	  if (target.get.isInstanceOf[Police])
+	 	  {
+	 	 	  target.get.asInstanceOf[Police].makeSuspect(Some(this));
+	 	 	  return "You hand over inciminating evidence to the police, good job."
+	 	  }
+	  }
+	   
+	  return "You place " + itemName + " into " + targetName + "'s hands.";
+  }
 }
 
 

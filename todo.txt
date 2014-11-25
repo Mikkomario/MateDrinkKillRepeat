@@ -5,10 +5,42 @@ TODO:
 Mikko
 	* Actit											Testaamatta
 	* Actionit (haastava)
-		- Give
-		- Use
-		- Plant
-		- Hide
+		- Give --- to --- (someone, bartender, police)
+			* Jos antaa evidencen, toinen huomaa sen automaattisesti
+				- Jos toinen on poliisi, hän suspectaa sua
+			* Vie actionin, jos toimii
+		- Use ---
+			* Juo
+			* Evidencen käyttö
+			* Vie actionin, jos toimii
+		- Plant --- on --- (someone, bartender, police)
+			* Yrittää planttaa
+			* Vie actionin, jos komento on validi
+		- Hide ---
+			* Toimii vaan dropattuihin itemeihin
+			* Jos itemi inventoryssa niin droppaa samalla
+			* Vie actionin, jos toimii
+		- Speak with --- (someone, bartender, police)
+			* Ekalla kerralla saa tietää nimen, toisella kerralla statsit
+			* Vie actionin, jos toimii
+		- Buy drink
+			* Yrittää ostaa juoman
+			* Vie actionin, jos toimii
+		- Drop ---
+			* Droppaa itemin
+			* vie actionin, jos toimii
+		- Look at --- (bartender, police)
+			* Antaa kuvauksen itemistä
+			* Antaa kuvauksen henkilön epäilyttävyydestä
+			* Ei vie actionia
+		- Look around
+			* Kertoo, paljon populaa on ja ketä näkyy
+			* Ei vie actionia
+		- Drink
+			* Sama kuin use drink
+		- Help
+			* Printtaa helpin
+			* Ei vie actionia
 	* Helppi (työläs, mutta helppo)
 Tuoppi
 	* Walkthrough (työläs, mutta helppo)
@@ -17,6 +49,8 @@ Tuoppi
 	* NPC:iden luominen (helppo)
 	* Viimeistely / palautus
 
+* Kuvaukset / väliprintit
+* Testaus
 * Nimien tiedustelu
 
 * (Deittailu) (vitun haastava)
