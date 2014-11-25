@@ -1,9 +1,12 @@
-The object of the game is to get rid of all the evidence and not get caught by cops before enough time has passed.
+The object of the game is to not have evidence once at least 25 turns have passed.
 Don't get caught by the police! The more drunk and stressed out you are, the more suspicious you will look.
 The police will be called when someone notices any evidence.
 Drinking relieves stress, but makes actions harder. Carrying evidence stresses you out slowly.
 
+If you pass out or go into shock (results of excessive alcohol and stress, respectively), you lose.
+
 Commands:
+
 go *direction*				- move to the area in the given direction, example: go north
 get *item*					- picks up an item from the area
 give *item* to *person*		- gives the item to the specified npc, check keywords
@@ -11,8 +14,8 @@ use *item*					- uses the item for whatever purpose
 drink						- drink an alcoholic beverage, if you have one; this lowers your stress level
 speak with *person*			- speaks to the person, check keywords
 plant *item* on *person*	- secretly plants an object on a person, check keywords
-hide *item*					- hides the item, making it harder to find; if the item is in your inventory,
-							drops it first
+hide *item*					- hides the item, making it harder to find;
+							if the item is in your inventory, drops it first
 drop *item*					- drops the item
 examine *item*				- describes the item
 buy drink					- buys a drink if there is a bartender present in your area
@@ -22,6 +25,7 @@ quit						- stop playing
 help						- this is supposed to help you...
 
 Keywords:
+
 someone		- a random person in the area
 bartender	- a random bartender in the area
 police		- a random police in the area
