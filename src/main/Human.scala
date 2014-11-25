@@ -131,6 +131,6 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     {
       item.get.use(this)
     }
-    else false
+    else false -> "You don't have that."
   }
 }
