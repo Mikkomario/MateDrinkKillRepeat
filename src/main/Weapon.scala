@@ -1,19 +1,16 @@
 package main
 
 class Weapon extends Evidence("knife", "The murder weapon. It looks pretty gnarly.", true) {
-  
-  private var wiped = false
+
   
   def use(user: Human) =
   {
     if (!user.location.people.isEmpty)
-      true
+      true -> "You killed again! There's no way to get out of this now..."
     else
-      false
+      false -> "There's no-one here to shank. Bugger."
   }
   
-  def isClean = this.wiped
-  
-  def wipe() = this.wiped = true
+  def wipe() = this.hide()
   
 }

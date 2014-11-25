@@ -21,7 +21,7 @@ abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
     }
   }
   
-  def hide =
+  def hide() =
   {
 	  this.hiddenness += 30
 	  if (this.hiddenness > 90)

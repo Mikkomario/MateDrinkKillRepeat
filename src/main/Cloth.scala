@@ -8,9 +8,9 @@ class Cloth extends Evidence("cloth", "A piece of clothing partially soaked in b
     if (knife.isDefined)
     {
       knife.get.asInstanceOf[Weapon].wipe()
-      true
+      true -> "You wipe your knife clean. It's a little less suspicious now, and hey, no fingerprints!"
     }
-    else false
+    else false -> "What could you possibly do with a bloody rag?"
   }
   
 }

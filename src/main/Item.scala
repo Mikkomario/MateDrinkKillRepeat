@@ -18,6 +18,6 @@ abstract class Item(val name: String, val description: String, val isEvidence: B
    */
   override def toString = this.name
   
-  def use(user: Human): Boolean
+  def use(user: Human): (Boolean, String)
   
 }
