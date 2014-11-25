@@ -147,12 +147,12 @@ class Adventure
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
     if (outcomeReport.isDefined) { 
+      this.turnsUntilPoliceArrive -= 1
       this.policeOfficers.foreach(_.lookAround)
       this.people.foreach(_.lookAround)
       this.policeOfficers.filter(!_.isOutOfAction).foreach(_.act)
       this.people.filter(!_.isOutOfAction).foreach(_.act)
       this.turnCount += 1
-      this.turnsUntilPoliceArrive -= 1
       if (this.turnsUntilPoliceArrive == 0)
       {
         println("The police have arrived.")
