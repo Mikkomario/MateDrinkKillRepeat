@@ -24,6 +24,10 @@ object AdventureTextUI extends App {
   private def run() = {
     println(this.game.welcomeMessage)
     while (!this.game.isOver) {
+      if (this.game.policeOnTheirWay)
+        println("The police will arrive shortly.")
+      if (!this.game.policeOfficers.isEmpty)
+        println("The police have arrived at the party.")
       this.printAreaInfo()
       println(this.player.areaPeopleDescription)
       println("You're " + this.player.statusDescription)
