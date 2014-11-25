@@ -15,6 +15,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   private var quitCommandGiven = false              // one-way flag
   private var hasKilledAgain = false                // one-way flag
   val knownPeople = Buffer[String]()
+  var gaveEvidenceToPolice = false;
   
   def areaPeopleDescription =
   {
@@ -163,6 +164,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	 	   
 	 	  if (target.get.isInstanceOf[Police])
 	 	  {
+	 	 	  this.gaveEvidenceToPolice = true;
 	 	 	  target.get.asInstanceOf[Police].makeSuspect(Some(this));
 	 	 	  return "You hand over inciminating evidence to the police, good job."
 	 	  }
