@@ -98,20 +98,20 @@ class Adventure
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
   /** The maximum number of turns that this adventure game allows before time runs out. */
-  val timeLimit = 40 
+  val timeLimit = 15 
 
 
   /**
    * Determines if the adventure is complete, that is, if the player has won. 
    */
-  def isComplete = !this.player.has("knife") && !this.player.has("cloth")
+  def isComplete = this.turnCount == this.timeLimit
 
   /**
    * Determines whether the game is over.
    * 
    * @return `true` if the player has won, lost or quit; `false` otherwise
    */
-  def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.lost
+  def isOver = this.isComplete || this.player.hasQuit || this.lost
 
   def lost = this.player.isOutOfAction || this.playerInterrogated || this.player.isSerialKiller
 
