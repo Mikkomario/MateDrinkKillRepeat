@@ -1,0 +1,25 @@
+The object is not to be caught by the police before the time runs out. The more drunk and stressed out
+you are, the more suspicious you will look. The police will be called when someone notices any evidence.
+Drinking relieves stress, but makes actions harder.
+
+Commands:
+go *direction* 			- move to the area in the given direction, example: go north
+give *item* to *person* - gives the item to the specified npc, check keywords
+use *item*				 - uses the item for whatever purpose
+drink					 - drink an alcoholic beverage, if you have one; this lowers your stress level
+speak with *person*		- speaks to the person, check keywords
+plant *item* on *person* - secretly plants an object on a person, check keywords
+hide *item*				- hides the item, making it harder to find; if the item is in your inventory,
+						drops it first
+drop *item*				- drops the item
+examine *item* 			- describes the item
+buy drink				- buys a drink if there is a bartender present in your area
+look at *item/person*	- describes the item or person, check keywords
+rest 					- stay put
+quit 					- stop playing
+help					- this is supposed to help you...
+
+Keywords:
+someone		- a random person in the area
+bartender	- a random bartender in the area
+police		- a random police in the area
