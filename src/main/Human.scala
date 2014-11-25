@@ -58,6 +58,20 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     else "passed out"
   }
   
+  def suspectDescription: String = 
+  {
+	  if (this.suspect < 25)
+	 	  return "the most unsuspicious fella in the world";
+	  else if (this.suspect < 50)
+	 	  return "not very suspicious at all"
+	  else if (this.suspect < 75)
+	 	  return "a rather suspicious sneak"
+	  else if (this.suspect < 100)
+	 	  return "a very suspicious villain, indeed"
+	   
+	  return "most likely a mass murderer"
+  }
+  
   def suspect = ( (this.alcohol + this.stress) / 2 ) / (1 + this.searchTimes)
   
   def perception = this.stress - this.alcohol + 50 // -50 - +150

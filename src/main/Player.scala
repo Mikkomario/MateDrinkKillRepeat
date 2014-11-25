@@ -157,7 +157,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	  if (item.get.isInstanceOf[Evidence])
 	  {
 	 	  if (target.get.isInstanceOf[NPC])
-	 	 	  target.get.asInstanceOf[NPC].onEvidenceFound(item.asInstanceOf[Evidence]);
+	 	 	  target.get.asInstanceOf[NPC].onEvidenceFound(item.get.asInstanceOf[Evidence]);
 	 	   
 	 	  if (target.get.isInstanceOf[Police])
 	 	  {
@@ -232,6 +232,24 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	  this.knownPeople += newName.toLowerCase();
 	   
 	  return "'Hi. My name is " + newName + ". Nice to meet you.'";
+  }
+  
+  def lookAt(targetName: String): String =
+  {
+	  // If the target is a human in the area, descibes their suspiciousness
+	  val targetPerson = findTarget(targetName);
+	  if (targetPerson.isDefined)
+	 	  return "They're " + targetPerson.get.suspectDescription + ".";
+	   
+	  // If the target is an item in you inventory, examines it
+	  if (this.has(targetName))
+	 	  return examine(targetName);
+	   
+	  // If the target is an item in the area, describes it
+	  if (this.location.inventory.contains(targetName))
+	 	  return this.location.inventory.getItem(targetName).get.description;
+	 
+	  return "There's not a single " + targetName + " around.";
   }
 }
 
