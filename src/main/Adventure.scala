@@ -52,8 +52,9 @@ class Adventure {
    * 
    * @return `true` if the player has won, lost or quit; `false` otherwise
    */
-  def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit
+  def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.lost
 
+  def lost = this.player.isPassedOut // || this.police.suspectsPlayer
 
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.

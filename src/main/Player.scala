@@ -13,7 +13,12 @@ import scala.collection.mutable.Map
 class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male) {
 
   private var quitCommandGiven = false              // one-way flag
+  private var hasKilledAgain = false                // one-way flag
    
+  
+  def murder = this.hasKilledAgain = true
+  
+  def isSerialKiller = this.hasKilledAgain
   
   /**
    * Determines if the player has indicated a desire to quit the game.
