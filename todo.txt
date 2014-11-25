@@ -4,7 +4,7 @@ TODO:
 
 Mikko
 	* Actit											Testaamatta
-	* Actionit (haastava)
+	* Actionit (haastava)							Testaamatta
 		- Give --- to --- (someone, bartender, police)
 			* Jos antaa evidencen, toinen huomaa sen automaattisesti
 				- Jos toinen on poliisi, hän suspectaa sua
@@ -41,16 +41,17 @@ Mikko
 		- Help
 			* Printtaa helpin
 			* Ei vie actionia
-	* Helppi (työläs, mutta helppo)
+	* Helppi (työläs, mutta helppo)					...
+	* Nimien tiedustelu								DONE
 Tuoppi
 	* Walkthrough (työläs, mutta helppo)
 	* Evidencet ja niiden käyttäminen (helpohko)	...
-	* Pelin päättyminen (helppo)
-	* NPC:iden luominen (helppo)
+	* Pelin päättyminen (helppo)					...
+	* NPC:iden luominen (helppo)					DONE
 	* Viimeistely / palautus
 
 * Kuvaukset / väliprintit
 * Testaus
-* Nimien tiedustelu
+* Stressin kertyminen
 
 * (Deittailu) (vitun haastava)
