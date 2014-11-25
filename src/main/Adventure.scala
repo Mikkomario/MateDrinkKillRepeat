@@ -16,6 +16,20 @@ class Adventure {
   /** The title of the adventure game. */
   val title = "Mate Drink Kill Repeat"
     
+  private var policeComing = false
+  private var turnsUntilPoliceArrive = -1
+  private var people = Vector[NPC]()
+  private var policeOfficers: Option[Vector[Police]] = None
+  private val maleNames = Vector[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
+  private val femaleNames = Vector[String]("Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
+  
+  def callPolice() =
+  {
+    this.policeComing = true
+    this.turnsUntilPoliceArrive = 2
+  }
+  
+  
   private val toilets     = new Area("Toilets", "You are in the toilets. There are bloodspatters here and there.\nA pool of blood is forming under one of the stalls.")
   private val tables      = new Area("Tables", "You are at the tables where customers come to sit and enjoy their drinks.")
   private val bar         = new Area("Bar", "There are many fancy drinks available. Damn, only two beers on the tap.")
@@ -54,7 +68,7 @@ class Adventure {
    */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.lost
 
-  def lost = this.player.isPassedOut // || this.police.suspectsPlayer
+  def lost = this.player.isOutOfAction // || this.police.suspectsPlayer
 
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.

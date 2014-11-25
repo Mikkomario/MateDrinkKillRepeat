@@ -20,10 +20,13 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
 
   def hasEvidence = this.inventory.inventory.exists( _._2.exists( _.isInstanceOf[Evidence] ) )
   
+  def isInShock = this.stress > 99
   
   def increaseStress(amount: Int) = this.stress = min(this.stress + amount, 100);
   
-  def isPassedOut = this.alcohol == 100
+  def isPassedOut = this.alcohol > 99
+  
+  def isOutOfAction = this.isInShock || this.isPassedOut
   
   def beSearched() = this.searchTimes += 1
   
