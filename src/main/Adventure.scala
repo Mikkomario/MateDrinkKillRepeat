@@ -120,7 +120,7 @@ class Adventure
    */
   def isOver = this.isComplete || this.player.hasQuit || this.lost
 
-  def lost = this.player.isOutOfAction || this.playerInterrogated || this.player.isSerialKiller
+  def lost = this.player.isOutOfAction || this.playerInterrogated || this.player.isSerialKiller || this.player.gaveEvidenceToPolice;
 
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.
@@ -132,7 +132,8 @@ class Adventure
    * Returns a message that is to be displayed to the player at the end of the game. 
    * The message will be different depending on whether or not the player has completed the quest.
    */
-  def goodbyeMessage = {
+  def goodbyeMessage =
+  {
     if (this.isComplete)
       "You got away with it! Good job. Time to plan the next hit, eh?"
     else if (this.player.isSerialKiller)

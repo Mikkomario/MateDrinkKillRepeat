@@ -93,7 +93,9 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
     	println(this.designation + " searched " + suspectName + " and found incriminating evidence.");
     	
     	// If all evidence was found, starts suspecting the player
-    	if (suspect == this.adventure.player || Police.evidenceFound.size == 3)
+    	if (suspect == this.adventure.player)
+    		this.adventure.playerInterrogated = true;
+    	else if (Police.evidenceFound.size == 3)
     	{
     		 println("The police now suspect you!");
     		this.adventure.policeOfficers.foreach { _.suspicion = Some(this.adventure.player) };
