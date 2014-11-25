@@ -18,12 +18,22 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   
   def areaPeopleDescription =
   {
+    var description = "You see "
     val people = this.location.people
     val customers = people.count( _._2.isInstanceOf[Customer] )
     val cops = people.count( _._2.isInstanceOf[Police] )
     val bartender = people.exists( _._2.isInstanceOf[Bartender] )
     val identified = people.keys.filter( this.knownPeople.contains(_) )
-    "You see " + customers + " customers, " + {if (bartender) "a bartender, "} + "and " + cops + "police.\nYou recognize " + identified.mkString(", ")
+    if (people.isEmpty) description = "No one is here."
+    else
+    {
+      if (customers > 0) description += customers + " customers, "
+      if (bartender) description  += "a bartender, "
+      if (cops > 0) description += cops + " police, "
+      if (identified.isEmpty) description += "and recognize no one."
+      else description += "and you recognize:\n" + identified.mkString(", ")
+    }
+    description
   }
   
   private def findTarget(targetName: String): Option[Human] =
