@@ -20,7 +20,7 @@ abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
     }
   }
   
-  def hide
+  def hide = this.hiddenness += 30
   
   def noticeability = 100 - this.hiddenness
   

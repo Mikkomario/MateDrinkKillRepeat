@@ -1,7 +1,6 @@
-package o1.adventure.ui
+package main.ui
 
-import o1.adventure._
-import scala.io.StdIn._
+import main._
 
 /**
  * The singleton object `AdventureTextUI` represents a fully text-based version of the
