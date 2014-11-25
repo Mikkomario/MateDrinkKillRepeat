@@ -25,6 +25,7 @@ object AdventureTextUI extends App {
     println(this.game.welcomeMessage)
     while (!this.game.isOver) {
       this.printAreaInfo()
+      println(this.player.areaPeopleDescription)
       this.playTurn()
     } 
     println("\n" + this.game.goodbyeMessage)

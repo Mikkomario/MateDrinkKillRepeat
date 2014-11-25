@@ -16,6 +16,16 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
   private var hasKilledAgain = false                // one-way flag
   val knownPeople = Buffer[String]()
   
+  def areaPeopleDescription =
+  {
+    val people = this.location.people
+    val customers = people.count( _._2.isInstanceOf[Customer] )
+    val cops = people.count( _._2.isInstanceOf[Police] )
+    val bartender = people.exists( _._2.isInstanceOf[Bartender] )
+    val identified = people.keys.filter( this.knownPeople.contains(_) )
+    "You see " + customers + " customers, " + {if (bartender) "a bartender, "} + "and " + cops + "police.\nYou recognize " + identified.mkString(", ")
+  }
+  
   private def findTarget(targetName: String): Option[Human] =
   {
 	  if (targetName == this.name)

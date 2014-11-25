@@ -36,6 +36,7 @@ class Adventure
 	   {
 	    this.policeComing = true
 	    this.turnsUntilPoliceArrive = 2
+	    println("Bloody popsickles! Someone called the pigs! Better hurry...")
 	   }
   }
   
