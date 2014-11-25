@@ -5,19 +5,19 @@ abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
   
   private var hiddenness = 0
   
-  def plant(player: Player, target: Human): Boolean =
+  def plant(player: Player, target: Human): String =
   {
     if (target.perception < player.intoxication)
     {
       player.inventory.removeItem(this.name)
       target.inventory.addItem(this)
       this.hiddenness = 50;
-      true
+      return "You successfully plant " + this.name + ".";
     }
     else
     {
       player.increaseStress(10)
-      false
+      return "You chicken out before you can plant the " + this.name + ".";
     }
   }
   
