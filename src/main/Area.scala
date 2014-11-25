@@ -66,7 +66,7 @@ class Area(var name: String, var description: String)
   def fullDescription = {
     def itemList = {
       if (!this.items.isEmpty) {
-      "\nYou see here: " + this.inventory.inventory.map(_._2).mkString(" ")
+      "\nYou see here: " + this.inventory.inventory.map(_._2).flatten.mkString(" ")
       } else ""
     }
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
