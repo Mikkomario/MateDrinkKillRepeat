@@ -104,7 +104,7 @@ class Adventure
   /**
    * Determines if the adventure is complete, that is, if the player has won. 
    */
-  def isComplete = this.turnCount == this.timeLimit
+  def isComplete = this.turnCount == this.timeLimit && !this.player.hasEvidence
 
   /**
    * Determines whether the game is over.
