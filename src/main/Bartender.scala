@@ -1,11 +1,12 @@
 package main
 
-class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, sex: Gender)
-      extends NPC(name, startingArea, initialDrunkenness, initialStress, sex)
+class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, 
+		sex: Gender, adventure: Adventure)
+      extends NPC(name, startingArea, initialDrunkenness, initialStress, sex, adventure)
 {
 	private var turnsTillRestock = 0;
   
-  def act =
+  override def act =
   {
 	  // täydentää juomavarastoaan (jos tyhjä), juo (jos stressiä paljon)
 	  turnsTillRestock -= 1;
@@ -17,6 +18,13 @@ class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initi
 	   }
 	   else if (this.stressLevel > 50 && this.hasDrinks())
 	  	   drink();
+  }
+  
+  override def onEvidenceFound(piece: Evidence)
+  {
+	  // Stressaa
+	  increaseStress(25);
+	  this.adventure.callPolice();
   }
   
   def pourDrinks =

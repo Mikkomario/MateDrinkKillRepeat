@@ -1,9 +1,11 @@
 package main
 
-class Customer(name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, sex: Gender)
-      extends NPC(name, startingArea, initialDrunkenness, initialStress, sex) {
+class Customer(name: String, startingArea: Area, initialDrunkenness: Int, initialStress: Int, 
+		sex: Gender, adventure: Adventure)
+      extends NPC(name, startingArea, initialDrunkenness, initialStress, sex, adventure)
+{
   
-  def act: Unit =
+  override def act: Unit =
   {
 	  // Moves around, drinks or buys drinks
 	  if (this.hasDrinks())
@@ -18,5 +20,12 @@ class Customer(name: String, startingArea: Area, initialDrunkenness: Int, initia
 	  }
 	   
 	  move();
+  }
+  
+  override def onEvidenceFound(piece: Evidence)
+  {
+	  // Stressaa ihan sikana
+	  increaseStress(40);
+	  this.adventure.callPolice();
   }
 }

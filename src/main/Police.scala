@@ -2,9 +2,8 @@ package main
 
 import scala.collection.mutable.Buffer
 
-class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
-		private val adventure: Adventure)
-      extends NPC(name, startingArea, 0, initialStress, sex)
+class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, adventure: Adventure)
+      extends NPC(name, startingArea, 0, initialStress, sex, adventure)
 {
   
   private var suspicion: Option[Human] = None;
@@ -12,7 +11,7 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender,
   private var interrogations = 0;
   
   
-  def act =
+  override def act =
   {
 	  // moves to a different area, searches the most suspicious individual in its current 
 	  // area, or interrogates a suspect with planted evidence
@@ -24,7 +23,7 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender,
 	 	 	  interrogate();
 	 	  else
 	 	  {
-	 	 	  this.increaseStress(5);
+	 	 	  this.increaseStress(10);
 	 	 	  move();
 	 	 	  this.searchesInThisArea = 0;
 	 	  }
@@ -38,12 +37,26 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender,
 	  }
   }
   
+  override def onEvidenceFound(piece: Evidence)
+  {
+	  // Collects the evidence and stresses out a bit
+	  this.location.inventory.removeItem(piece.name);
+	  this.inventory.removeItem(piece.name);
+	  Police.evidenceFound += piece;
+	   
+	  if (Police.evidenceFound.size == 3)
+	 	  this.adventure.policeOfficers.foreach { _.suspicion = Some(this.adventure.player) };
+	 
+	 increaseStress(5);
+  }
+  
   
   def suspectsPlayer = if (this.suspicion.isDefined && this.suspicion.get.isInstanceOf[Player]) true else false
   
   
   def search(): Unit =
   {
+	this.increaseStress(5);
     val suspect = this.location.people.maxBy( _._2.suspect )._2
     suspect.beSearched();
     if (suspect.hasEvidence)

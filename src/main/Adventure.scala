@@ -13,7 +13,8 @@ import scala.collection.mutable.Buffer
  * instances of class `Adventure` are identical to each other. To create other kinds of adventure 
  * games, you will need to modify or replace the source code of this class. 
  */
-class Adventure {
+class Adventure
+{
 
   /** The title of the adventure game. */
   val title = "Mate Drink Kill Repeat"
@@ -29,8 +30,11 @@ class Adventure {
   
   def callPolice() =
   {
-    this.policeComing = true
-    this.turnsUntilPoliceArrive = 2
+	  if (!this.policeComing)
+	   {
+	    this.policeComing = true
+	    this.turnsUntilPoliceArrive = 2
+	   }
   }
   
   

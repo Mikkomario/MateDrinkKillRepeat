@@ -17,5 +17,6 @@ Tuoppi
 	* NPC:iden luominen (helppo)
 	* Viimeistely / palautus
 
+* Nimien tiedustelu
 
 * (Deittailu) (vitun haastava)

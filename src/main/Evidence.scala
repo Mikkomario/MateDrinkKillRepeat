@@ -11,6 +11,7 @@ abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
     {
       player.inventory.removeItem(this.name)
       target.inventory.addItem(this)
+      this.hiddenness = 50;
       true
     }
     else
@@ -20,7 +21,12 @@ abstract class Evidence(name: String, description: String, canBeLifted: Boolean)
     }
   }
   
-  def hide = this.hiddenness += 30
+  def hide =
+  {
+	  this.hiddenness += 30
+	  if (this.hiddenness > 90)
+	 	  this.hiddenness = 90;
+  }
   
   def noticeability = 100 - this.hiddenness
   
