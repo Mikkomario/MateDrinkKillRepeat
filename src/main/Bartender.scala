@@ -15,6 +15,7 @@ class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initi
 	   {
 	  	   turnsTillRestock = 3;
 	  	   pourDrinks;
+	  	   this.describeHappenings(this.designation + " pours drinks.");
 	   }
 	   else if (this.stressLevel > 50 && this.hasDrinks())
 	  	   drink();
@@ -23,8 +24,17 @@ class Bartender(name: String, startingArea: Area, initialDrunkenness: Int, initi
   override def onEvidenceFound(piece: Evidence)
   {
 	  // Stressaa
+	  this.describeHappenings(this.designation + " saw the " + piece.name);
 	  increaseStress(25);
 	  this.adventure.callPolice();
+  }
+  
+  override def designation: String =
+  {
+	  if (this.isKnownToPlayer())
+	 	  return "bartender " + this.name;
+	  else
+	 	  return "a bartender";
   }
   
   def pourDrinks =
