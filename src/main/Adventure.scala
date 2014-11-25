@@ -98,14 +98,17 @@ class Adventure
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
   /** The maximum number of turns that this adventure game allows before time runs out. */
-  val timeLimit = 15 
+  val timeLimit = 25
 
 
   /**
    * Determines if the adventure is complete, that is, if the player has won. 
    */
-  def isComplete = this.turnCount == this.timeLimit && !this.player.hasEvidence
-
+  def isComplete = (this.turnCount == this.timeLimit && !this.player.hasEvidence) || this.policeOutOfAction
+  
+  def policeOutOfAction = !this. policeOfficers.isEmpty && this.policeOfficers.forall(_.isPassedOut)
+  
+  
   /**
    * Determines whether the game is over.
    * 
@@ -118,7 +121,7 @@ class Adventure
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.
    */
-  def welcomeMessage = "You are at a party. It's pretty cool.\nThe problem is, you just killed someone!\nYou better get rid of the evidence, before the coppers catch you!\nYou are carrying: " + this.player.inventory.inventory.map( _._2 ).flatten.mkString(", ")
+  def welcomeMessage = "You are at a party. It's pretty cool.\nThe problem is, you just killed someone!\nYou better get rid of the evidence and avoid any coppers until the trail is cold!\nYou are carrying: " + this.player.inventory.inventory.map( _._2 ).flatten.mkString(", ")
 
     
   /**
@@ -126,13 +129,20 @@ class Adventure
    * The message will be different depending on whether or not the player has completed the quest.
    */
   def goodbyeMessage = {
-    if (this.isComplete) {
+    if (this.isComplete)
       "You got away with it! Good job. Time to plan the next hit, eh?"
-    } else if (this.turnCount == this.timeLimit) {
-      "Oh no! Time's up. Starved of entertainment, you collapse and weep like a child.\nGame over!"
-    } else { // game over due to player quitting
-      "You give up?! That's a life sentence, you know..." 
-    }
+    else if (this.player.isSerialKiller)
+      "You just had to kill again, well good job, they're totally catching you now!"
+    else if (this.playerInterrogated)
+      "Bloody hell, the pigs got you. You should try harder next time you kill someone at a party!"
+    else if (this.player.isInShock)
+      "You can't take it anymore! You start screaming: \"I did it! I did it... Take me, you bastards!\""
+    else if (this.player.isPassedOut)
+      "You passed out, and wake up, with a shattering headache, in jail. Bugger!"
+    else if (this.player.hasQuit)
+      "You give up?! That's a life sentence, you know..."
+    else if (this.policeOutOfAction)
+      "You managed to elude the coppers for long enough; they got too stressed or passed out! Good job!"
   }
 
   
