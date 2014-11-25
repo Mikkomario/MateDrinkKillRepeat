@@ -71,8 +71,7 @@ class Action(input: String) {
     }
     else if (this.verb == "speak" && this.modifiers(1) == "with")
     {
-    	// TODO: Implement
-    	None;
+    	Some(actor.speakWith(this.modifiers(2)));
     }
     else if (this.verb == "buy" && this.modifiers(1) == "drink")
     {
@@ -80,11 +79,6 @@ class Action(input: String) {
     	None;
     }
     else if (this.verb == "look" && this.modifiers(1) == "at")
-    {
-    	// TODO: Implement
-    	None;
-    }
-    else if (this.verb == "look" && this.modifiers(1) == "around")
     {
     	// TODO: Implement
     	None;

@@ -203,6 +203,26 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	    
 	  return inventoryItem.get.asInstanceOf[Evidence].hide();
   }
+  
+  def speakWith(targetName: String): String = 
+  {
+	  val target = findTarget(targetName);
+	   
+	  if (target.isEmpty)
+	 	  return "There is not a single " + targetName + " to talk to.";
+	   
+	  // If the target is already known, asks their condition
+	  if (this.knownPeople.contains(targetName))
+	  {
+	 	  return "'I'm " + target.get.statusDescription + ".'";
+	  }
+	   
+	  // Otherwise introduces the target to the player
+	  val newName = target.get.name;
+	  this.knownPeople += newName;
+	   
+	  return "'Hi. My name is " + newName + ". Nice to meet you.'";
+  }
 }
 
 

@@ -42,18 +42,18 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
   
   def stressDescription =
   {
-    if (this.stress < 25) "calm"
-    else if (this.stress < 50) "nervous"
-    else if (this.stress < 75) "anxious"
-    else if (this.stress < 100) "super stressed"
-    else "in shock"
+    if (this.stress < 25) "feeling awesome"
+    else if (this.stress < 50) "feeling a bit stressed out"
+    else if (this.stress < 75) "feeling very stressed"
+    else if (this.stress < 100) "going crazy"
+    else "in total shock"
   }
   
   def intoxDescription =
   {
-    if (this.alcohol < 25) "sober"
-    else if (this.alcohol < 50) "slightly drunk"
-    else if (this.alcohol < 75) "drunk"
+    if (this.alcohol < 25) "sober as a Moomin in July"
+    else if (this.alcohol < 50) "slightly drunk already"
+    else if (this.alcohol < 75) "drunksh"
     else if (this.alcohol < 100) "shit-faced" // krhm k-15 kö?
     else "passed out"
   }
@@ -150,5 +150,10 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
       item.get.use(this)
     }
     else false -> "You don't have that."
+  }
+  
+  def statusDescription: String = 
+  {  
+	  return this.stressDescription + ", yet " + this.intoxDescription;
   }
 }
