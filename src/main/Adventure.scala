@@ -1,5 +1,7 @@
 package main
 
+import scala.collection.mutable.Buffer
+
 
 /**
  * The class `Adventure` represents text adventure games. An adventure consists of a player and 
@@ -15,11 +17,13 @@ class Adventure {
 
   /** The title of the adventure game. */
   val title = "Mate Drink Kill Repeat"
+  
+  var policeOfficers = Buffer[Police]();
+  var playerInterrogated = false;
     
   private var policeComing = false
   private var turnsUntilPoliceArrive = -1
   private var people = Vector[NPC]()
-  private var policeOfficers: Option[Vector[Police]] = None
   private val maleNames = Vector[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
   private val femaleNames = Vector[String]("Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs. Bond", "Amélie", "Ellie")
   
@@ -68,7 +72,7 @@ class Adventure {
    */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.lost
 
-  def lost = this.player.isOutOfAction // || this.police.suspectsPlayer
+  def lost = this.player.isOutOfAction || this.playerInterrogated
 
   /**
    * Returns a message that is to be displayed to the player at the beginning of the game.
