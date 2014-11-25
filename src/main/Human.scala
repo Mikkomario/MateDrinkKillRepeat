@@ -146,9 +146,6 @@ class Human(val name: String, startingArea: Area, initialDrunkenness: Int, initi
     val consumed = drink.drink()
       this.stress = max(this.stress - 25, 0)
       this.alcohol = min(this.alcohol + 15, 100)
-      if (consumed) {
-        this.inventory.removeItem("drink")
-      }
       true
     }
     else false

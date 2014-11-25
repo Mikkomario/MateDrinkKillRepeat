@@ -45,6 +45,8 @@ class Inventory {
       val item = Some(list.remove(0));
       if (list.isEmpty)
         this.items -= itemName
+      else
+        this.items(itemName) = list
       item
     }
     else
