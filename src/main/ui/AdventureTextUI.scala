@@ -28,7 +28,7 @@ object AdventureTextUI extends App {
       if (this.game.policeOnTheirWay)
         println("The police will arrive shortly.")
       if (!this.game.policeOfficers.isEmpty)
-        println("The police have arrived at the party.")
+        println("The police are at the party.")
       println(this.player.areaPeopleDescription)
       println("You're " + this.player.statusDescription)
       this.playTurn()

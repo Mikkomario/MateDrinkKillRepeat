@@ -34,7 +34,7 @@ class Adventure
   
   def callPolice() =
   {
-	  if (!this.policeComing)
+	  if (!this.policeComing && this.policeOfficers.isEmpty)
 	   {
 	    this.policeComing = true
 	    this.turnsUntilPoliceArrive = 2
