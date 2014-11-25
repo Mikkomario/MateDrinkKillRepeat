@@ -11,10 +11,12 @@ class Police(name: String, startingArea: Area, initialStress: Int, sex: Gender, 
   private var interrogations = 0;
   
   
-  override def act =
+  override def act: Unit =
   {
 	  // moves to a different area, searches the most suspicious individual in its current 
 	  // area, or interrogates a suspect with planted evidence
+	  if (this.stressLevel > 50 && !this.hasDrinks() && this.buyDrink()._1)
+	 	  return;
 	  if (this.stressLevel > 70 && this.hasDrinks())
 	 	  drink();
 	  else if (this.suspicion.isDefined)
