@@ -26,76 +26,81 @@ class Action(input: String) {
    */
   def execute(actor: Player): Option[String] =
   {
-    if (this.verb == "go")
+ 	if (this.verb == "go")
     {
-      Some(actor.go(this.modifiers(1)))
+      return Some(actor.go(this.modifiers(1)))
     }
     else if (this.verb == "rest")
     {
-      Some(actor.rest())
+      return Some(actor.rest())
     }
     else if (this.verb == "quit")
     {
-      Some(actor.quit())
+      return Some(actor.quit())
     }
     else if (this.verb == "inventory")
     {
-      Some(actor.makeInventory())
+      return Some(actor.makeInventory())
     }
-    else if (this.verb == "get")
+ 	else if (this.verb == "buy" && this.modifiers(1) == "drink")
     {
-      Some(actor.get(this.modifiers(1)))
+    	return Some(actor.buyDrink()._2);
     }
-    else if (this.verb == "drop")
+ 	 else if (this.verb == "drink")
     {
-      Some(actor.drop(this.modifiers(1)))
-    }
-    else if (this.verb == "examine")
-    {
-      Some(actor.examine(this.modifiers(1)))
-    }
-    else if (this.verb == "give" && this.modifiers(2) == "to")
-    {
-    	Some(actor.giveTo(this.modifiers(1), this.modifiers(3)));
-    }
-    else if (this.verb == "use")
-    {
-    	Some(actor.use(this.modifiers(1))._2);
-    }
-    else if (this.verb == "plant" && this.modifiers(2) == "on")
-    {
-    	Some(actor.plantOn(this.modifiers(1), this.modifiers(3)))
-    }
-    else if (this.verb == "hide")
-    {
-    	Some(actor.hide(this.modifiers(1)));
-    }
-    else if (this.verb == "speak" && this.modifiers(1) == "with")
-    {
-    	Some(actor.speakWith(this.modifiers(2)));
-    }
-    else if (this.verb == "buy" && this.modifiers(1) == "drink")
-    {
-    	Some(actor.buyDrink()._2);
-    }
-    else if (this.verb == "look" && this.modifiers(1) == "at")
-    {
-    	Some(actor.lookAt(this.modifiers(2)));
-    }
-    else if (this.verb == "drink")
-    {
-    	Some(actor.use("drink")._2);
+    	return Some(actor.use("drink")._2);
     }
     else if (this.verb == "help")
     {
       val helpFile = Source.fromFile("help.txt")
       val helpText = helpFile.getLines().mkString("\n")
-    	Some(helpText);
+    	return Some(helpText);
     }
-    else
-    {
-      None
-    } 
+ 	if (this.modifiers.size >= 2)
+ 	{
+ 		if (this.verb == "get")
+	    {
+	      return Some(actor.get(this.modifiers(1)))
+	    }
+	    else if (this.verb == "drop")
+	    {
+	      return Some(actor.drop(this.modifiers(1)))
+	    }
+	    else if (this.verb == "examine")
+	    {
+	      return Some(actor.examine(this.modifiers(1)))
+	    }
+ 		else if (this.verb == "use")
+	    {
+	    	return Some(actor.use(this.modifiers(1))._2);
+	    }
+	    else if (this.verb == "hide")
+	    {
+	    	return Some(actor.hide(this.modifiers(1)));
+	    }
+ 	}
+ 	
+ 	if (this.modifiers.size >= 3)
+ 	{
+ 		if (this.verb == "give" && this.modifiers(2) == "to")
+	    {
+	    	return Some(actor.giveTo(this.modifiers(1), this.modifiers(3)));
+	    }
+	    else if (this.verb == "plant" && this.modifiers(2) == "on")
+	    {
+	    	return Some(actor.plantOn(this.modifiers(1), this.modifiers(3)))
+	    }
+	    else if (this.verb == "speak" && this.modifiers(1) == "with")
+	    {
+	    	return Some(actor.speakWith(this.modifiers(2)));
+	    }
+	    else if (this.verb == "look" && this.modifiers(1) == "at")
+	    {
+	    	return Some(actor.lookAt(this.modifiers(2)));
+	    }
+ 	}
+    
+      return None;
   }
 
 
