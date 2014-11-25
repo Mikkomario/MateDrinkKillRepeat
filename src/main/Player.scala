@@ -1,7 +1,7 @@
 package main
 
 import scala.collection.mutable.Map
-
+import scala.collection.mutable.Buffer
   
 /**
  * A `Player` object represents a player character controlled by the real-life user of the program. 
@@ -14,7 +14,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 
   private var quitCommandGiven = false              // one-way flag
   private var hasKilledAgain = false                // one-way flag
-   
+  val knownPeople = Buffer[String]()
   
   private def findTarget(targetName: String): Option[Human] =
   {
