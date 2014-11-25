@@ -31,8 +31,12 @@ abstract class NPC(name: String, startingArea: Area, initialDrunkenness: Int,
   }
   
   // returns Option[Item]. None if there is no evidence that the NPC sees, otherwise the evidence wrapped in an Option
-  def lookAround =
+  def lookAround: Unit =
   {
+	  // Shocked people don't find that much stuf
+	  if (this.isOutOfAction)
+	 	  return;
+	  
 	  // katsoo ympärilleen, ja riippuen vireystilastaan (alkoholi, stressi) saattaa huomata todisteen
 	  // Jos löytää todisteen huoneesta, panikoituu
 	  for (piece <- this.location.inventory.evidence)
