@@ -63,13 +63,11 @@ class Action(input: String) {
     }
     else if (this.verb == "plant" && this.modifiers(2) == "on")
     {
-    	// TODO: Implement
-    	None;
+    	Some(actor.plantOn(this.modifiers(1), this.modifiers(3)))
     }
     else if (this.verb == "hide")
     {
-    	// TODO: Implement
-    	None;
+    	Some(actor.hide(this.modifiers(1)));
     }
     else if (this.verb == "speak" && this.modifiers(1) == "with")
     {
