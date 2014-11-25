@@ -1,5 +1,6 @@
-The object is not to be caught by the police before the time runs out. The more drunk and stressed out
-you are, the more suspicious you will look. The police will be called when someone notices any evidence.
+The object of the game is to get rid of all the evidence and not get caught by cops before enough time has passed.
+Don't get caught by the police! The more drunk and stressed out you are, the more suspicious you will look.
+The police will be called when someone notices any evidence.
 Drinking relieves stress, but makes actions harder. Carrying evidence stresses you out slowly.
 
 Commands:

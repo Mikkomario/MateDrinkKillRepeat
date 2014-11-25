@@ -175,11 +175,14 @@ class Adventure
         this.policeArrive()
         this.player.increaseStress(10)
         val policeOne = new Police("Kimble", this.bar, random.nextInt(25), Male, this)
-        val policeTwo = new Police("Cooper", this.bar, random.nextInt(25), Male, this)
+        val policeTwo = new Police("Cooper", this.bar, random.nextInt(10), Male, this)
+        val policeThree = new Police("Pöysti", this.bar, random.nextInt(25), Male, this)
         this.bar.addPerson(policeOne)
         this.bar.addPerson(policeTwo)
+        this.bar.addPerson(policeThree)
         this.policeOfficers += policeOne
         this.policeOfficers += policeTwo
+        this.policeOfficers += policeThree
       }
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")

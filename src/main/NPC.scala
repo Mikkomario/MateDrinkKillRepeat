@@ -1,11 +1,13 @@
 package main
 
 import scala.util.Random
+import scala.collection.mutable.Buffer
 
 abstract class NPC(name: String, startingArea: Area, initialDrunkenness: Int, 
 		initialStress: Int, sex: Gender, protected val adventure: Adventure)
       extends Human(name, startingArea, initialDrunkenness, initialStress, sex)
 {
+  private val oldEvidence = Buffer[Evidence]()
   
   def act: Unit // M‰‰ritt‰‰ mit‰ NPC tekee, t‰t‰ kutsutaan kaikille NPC:ille (jotka eiv‰t ole sammuneita) joka pelaajavuoron j‰lkeen
   
@@ -42,18 +44,28 @@ abstract class NPC(name: String, startingArea: Area, initialDrunkenness: Int,
 	  for (piece <- this.location.inventory.evidence)
 	  {
 	 	  val evidencePiece = piece.asInstanceOf[Evidence];
-	 	  if (this.wouldNotice(evidencePiece))
-	 	 	  onEvidenceFound(evidencePiece);
+	 	  if (!this.oldEvidence.contains(evidencePiece))
+	 	  {
+	 	    if (this.wouldNotice(evidencePiece))
+	 	 	  {
+	 	      this.oldEvidence += evidencePiece;
+	 	      onEvidenceFound(evidencePiece);
+	 	 	  }
+	 	 	}
 	  }
 	  // Jos todiste lˆytyy omasta taskusta, panikoituu viel‰ enemm‰n
 	  for (piece <- this.inventory.evidence)
 	  {
 	 	  val evidencePiece = piece.asInstanceOf[Evidence];
-	 	  if (this.wouldNotice(evidencePiece))
-	 	   {
-	 	 	  increaseStress(25);
-	 	 	  onEvidenceFound(evidencePiece)
-	 	   }
+	 	  if (!this.oldEvidence.contains(evidencePiece))
+	 	  {
+	 	    if (this.wouldNotice(evidencePiece))
+	 	     {
+	 	      this.oldEvidence += evidencePiece;
+	 	 	    increaseStress(25);
+	 	 	    onEvidenceFound(evidencePiece)
+	 	     }
+	 	  }
 	  }
   }
 }
