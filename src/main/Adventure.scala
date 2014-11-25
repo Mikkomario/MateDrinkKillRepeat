@@ -108,7 +108,7 @@ class Adventure
   /**
    * Determines if the adventure is complete, that is, if the player has won. 
    */
-  def isComplete = (this.turnCount == this.timeLimit && !this.player.hasEvidence) || this.policeOutOfAction
+  def isComplete = (this.turnCount >= this.timeLimit && !this.player.hasEvidence) || this.policeOutOfAction
   
   def policeOutOfAction = !this. policeOfficers.isEmpty && this.policeOfficers.forall(_.isPassedOut)
   
