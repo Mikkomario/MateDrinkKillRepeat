@@ -22,13 +22,15 @@ class Adventure
   
   val policeOfficers = Buffer[Police]();
   var playerInterrogated = false;
-    
+  
   private var policeComing = false
   private var turnsUntilPoliceArrive = -1
   private val people = Buffer[NPC]()
   private val maleNames = Buffer[String]("John", "Tim", "Randy", "Benedict", "Stanley", "Eric", "Moses", "Chris", "Ben", "Jerry", "Timothy", "Jack", "James", "Mike", "Bob", "Seppo")
   private val femaleNames = Buffer[String]("Patricia","Catherine", "Christine", "Molly", "Elizabeth", "Laura", "Donna", "Lucy", "Madeleine", "Mrs.Bond", "Amelie", "Ellie")
   private val random = new Random
+  
+  def policeOnTheirWay = this.policeComing
   
   def callPolice() =
   {
@@ -39,6 +41,8 @@ class Adventure
 	    println("Bloody popsickles! Someone called the pigs! Better hurry...")
 	   }
   }
+  
+  def policeArrive() = this.policeComing = false
   
   
   private val toilets     = new Area("Toilets", "You are in the toilets. There are bloodspatters here and there.\nA pool of blood is forming under one of the stalls.")
@@ -163,10 +167,12 @@ class Adventure
       this.people.foreach(_.lookAround)
       this.policeOfficers.filter(!_.isOutOfAction).foreach(_.act)
       this.people.filter(!_.isOutOfAction).foreach(_.act)
+      if (this.player.hasEvidence) this.player.increaseStress(3)
       this.turnCount += 1
       if (this.turnsUntilPoliceArrive == 0)
       {
         println("The police have arrived.")
+        this.policeArrive()
         this.player.increaseStress(10)
         val policeOne = new Police("Kimble", this.bar, random.nextInt(25), Male, this)
         val policeTwo = new Police("Cooper", this.bar, random.nextInt(25), Male, this)

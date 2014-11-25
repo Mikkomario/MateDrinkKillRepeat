@@ -144,7 +144,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	  val target = findTarget(targetName);
 	   
 	  if (target.isEmpty)
-	 	  return "You can't see a single " + targetName;
+	 	  return "You can't see a single " + targetName.capitalize;
 	  
 	  
 	  val item = this.inventory.getItem(itemName);
@@ -178,7 +178,7 @@ class Player(startingArea: Area) extends Human("Tom", startingArea, 0, 60, Male)
 	  val target = findTarget(targetName);
 	   
 	  if (target.isEmpty)
-	 	  return "You can't see a single " + targetName;
+	 	  return "You can't see a single " + targetName.capitalize;
 	   
 	  val item = this.inventory.getItem(itemName);
 	  if (item.isEmpty)

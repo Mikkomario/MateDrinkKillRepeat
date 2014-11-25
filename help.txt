@@ -1,6 +1,6 @@
 The object is not to be caught by the police before the time runs out. The more drunk and stressed out
 you are, the more suspicious you will look. The police will be called when someone notices any evidence.
-Drinking relieves stress, but makes actions harder.
+Drinking relieves stress, but makes actions harder. Carrying evidence stresses you out slowly.
 
 Commands:
 go *direction*				- move to the area in the given direction, example: go north
